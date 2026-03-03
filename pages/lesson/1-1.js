@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Brain, Zap, MessageSquare, Image as ImageIcon, Check } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Brain, Zap, MessageSquare, Image as ImageIcon, Check, Mic } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Lesson1_1 = () => {
