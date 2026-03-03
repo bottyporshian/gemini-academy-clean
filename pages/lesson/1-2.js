@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Check, X, Shield, Zap, FileText, Youtube } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Check, X, Shield, Zap, FileText, Youtube, Upload, File } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Lesson1_2 = () => {
   return (
@@ -101,19 +101,18 @@ const Lesson1_2 = () => {
                 This is the "Context Window". Gemini 1.5 Pro has a context window of up to 2 million tokens. 
                 You can upload your entire company codebase, a year's worth of financial reports, or a 3-hour video, and ask questions about specific details.
               </p>
+              
               <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-xl mb-8">
                 <p className="font-bold text-blue-900 text-sm">💡 Pro Tip:</p>
                 <p className="text-blue-800 text-sm mb-4">Don't summarize documents one by one. Upload the whole folder to Gemini and ask: "Find the contradictions between these 5 contracts."</p>
                 
-                {/* Upload Demo Video (Live) */}
-                <div className="rounded-lg overflow-hidden border border-blue-200 shadow-sm">
-                  <iframe 
-                    src="/components/lesson_1_2_demo.html" 
-                    className="w-full h-[280px] border-0" 
-                    title="Gemini Upload Demo"
-                  />
+                {/* UPLOAD SIMULATION */}
+                <div className="rounded-lg overflow-hidden border border-blue-200 shadow-sm bg-white">
+                   <p className="text-center text-slate-400 text-[10px] uppercase font-bold tracking-widest py-2 bg-slate-50 border-b border-slate-100">Watch: How to Upload Files</p>
+                   <FileUploadSimulation />
                 </div>
               </div>
+
             </div>
             <div className="bg-gradient-to-br from-slate-100 to-white p-8 rounded-3xl border border-slate-200 shadow-inner">
                <div className="space-y-4">
@@ -216,5 +215,120 @@ const CompareRow = ({ feature, gemini, gpt, winner }) => (
     </div>
   </div>
 );
+
+// --- FILE UPLOAD ANIMATION (Replica of Gemini Interface) ---
+const FileUploadSimulation = () => {
+  const [step, setStep] = useState(0); 
+
+  useEffect(() => {
+    const cycle = async () => {
+      // 0: Start (Cursor on file)
+      setStep(0);
+      await new Promise(r => setTimeout(r, 1000));
+      
+      // 1: Drag Start (Grab File)
+      setStep(1);
+      await new Promise(r => setTimeout(r, 1000));
+      
+      // 2: Drag Over Chat (Drop Zone Active)
+      setStep(2);
+      await new Promise(r => setTimeout(r, 1000));
+
+      // 3: Drop (File appears in chat)
+      setStep(3);
+      await new Promise(r => setTimeout(r, 2500));
+      
+      cycle();
+    };
+    cycle();
+  }, []);
+
+  const getCursorPos = () => {
+     switch(step) {
+        case 0: return { top: '30%', left: '80%' }; // On Desktop File
+        case 1: return { top: '30%', left: '80%' }; // Grab
+        case 2: return { top: '75%', left: '50%' }; // Over Chat Input
+        case 3: return { top: '75%', left: '50%' }; // Release
+        default: return { top: '50%', left: '50%' };
+     }
+  };
+
+  return (
+    <div className="relative w-full h-64 bg-[#f0f4f9] overflow-hidden flex flex-col cursor-none font-sans">
+      
+      {/* BACKGROUND: DESKTOP WALLPAPER */}
+      <div className="absolute inset-0 bg-slate-100">
+         {/* Desktop Icons */}
+         <div className="absolute top-8 right-8 flex flex-col items-center gap-2">
+            <motion.div 
+               animate={step === 1 || step === 2 ? { opacity: 0.5, scale: 0.9 } : { opacity: 1, scale: 1 }}
+               className="w-12 h-14 bg-white border border-slate-300 shadow-sm rounded flex items-center justify-center"
+            >
+               <FileText className="text-red-500 w-6 h-6" />
+            </motion.div>
+            <span className="text-[10px] text-slate-600 font-medium">Contract.pdf</span>
+         </div>
+      </div>
+
+      {/* GEMINI CHAT INTERFACE (Bottom Half) */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-white rounded-t-2xl shadow-lg border-t border-slate-200 p-4">
+         <div className="flex items-center gap-2 mb-2">
+            <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="" className="w-5 h-5" />
+            <span className="text-sm font-medium text-slate-700">Gemini</span>
+         </div>
+
+         {/* Input Area (Drop Zone) */}
+         <motion.div 
+            animate={step === 2 ? { borderColor: '#1a73e8', backgroundColor: '#e8f0fe' } : { borderColor: '#e2e8f0', backgroundColor: '#f8fafc' }}
+            className="w-full h-16 border-2 border-dashed rounded-xl flex items-center px-4 relative transition-colors"
+         >
+            {/* The Plus Button */}
+            <div className="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center mr-3 text-slate-500 font-bold">+</div>
+            
+            <AnimatePresence>
+               {step === 3 ? (
+                  <motion.div 
+                     initial={{ scale: 0, opacity: 0 }}
+                     animate={{ scale: 1, opacity: 1 }}
+                     className="px-3 py-1 bg-white border border-slate-300 rounded-lg flex items-center gap-2 shadow-sm"
+                  >
+                     <FileText className="w-4 h-4 text-red-500" />
+                     <span className="text-xs font-medium text-slate-700">Contract.pdf</span>
+                     <div className="w-3 h-3 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                  </motion.div>
+               ) : (
+                  <span className="text-slate-400 text-sm">Type a message or drag a file...</span>
+               )}
+            </AnimatePresence>
+         </motion.div>
+      </div>
+
+      {/* DRAGGED FILE (Ghost) */}
+      {(step === 1 || step === 2) && (
+         <motion.div
+            className="absolute z-40 pointer-events-none"
+            initial={getCursorPos()}
+            animate={getCursorPos()}
+            transition={{ type: "spring", stiffness: 120, damping: 20 }}
+         >
+            <div className="w-12 h-14 bg-white border border-slate-300 shadow-xl rounded flex items-center justify-center rotate-6 opacity-90 -mt-6 -ml-6">
+               <FileText className="text-red-500 w-6 h-6" />
+            </div>
+         </motion.div>
+      )}
+
+      {/* CURSOR */}
+      <motion.div
+         className="absolute z-50 pointer-events-none drop-shadow-xl"
+         animate={getCursorPos()}
+         transition={{ type: "spring", stiffness: 120, damping: 20 }}
+      >
+         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19823L11.4818 12.3673H5.65376Z" fill="black" stroke="white" strokeWidth="1"/>
+         </svg>
+      </motion.div>
+    </div>
+  );
+};
 
 export default Lesson1_2;
