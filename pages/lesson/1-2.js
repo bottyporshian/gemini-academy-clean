@@ -105,7 +105,7 @@ const Lesson1_2 = () => {
                 <p className="font-bold text-blue-900 text-sm">💡 Pro Tip:</p>
                 <p className="text-blue-800 text-sm mb-4">Don't summarize documents one by one. Upload the whole folder to Gemini and ask: "Find the contradictions between these 5 contracts."</p>
                 
-                {/* Upload Demo Video */}
+                {/* Upload Demo Video (Live) */}
                 <div className="rounded-lg overflow-hidden border border-blue-200 shadow-sm">
                   <iframe 
                     src="/components/lesson_1_2_demo.html" 
