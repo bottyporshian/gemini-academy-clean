@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { margin: 0; background: transparent; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 300px; overflow: hidden; }
+        .demo-container { position: relative; width: 600px; height: 280px; background: #fff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #e0e0e0; }
+        
+        /* Gemini UI */
+        .chat-bar { position: absolute; bottom: 20px; left: 20px; right: 20px; height: 60px; background: #f0f4f9; border-radius: 30px; display: flex; align-items: center; padding: 0 20px; z-index: 2; }
+        .plus-btn { width: 32px; height: 32px; background: #dfe4ea; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; margin-left: 10px; color: #444; font-size: 20px; }
+        .input-placeholder { color: #888; flex-grow: 1; margin-right: 15px; }
+        .send-btn { color: #ccc; }
+
+        /* Desktop Files */
+        .desktop-file { position: absolute; top: 40px; right: 40px; width: 60px; height: 80px; background: #fff; border: 1px solid #ccc; border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; cursor: grab; }
+        .file-icon { font-size: 30px; color: #ea4335; margin-bottom: 5px; } /* PDF Color */
+        .file-name { font-size: 10px; color: #555; }
+
+        /* Mouse Cursor */
+        .cursor { position: absolute; top: 100px; right: 100px; width: 20px; height: 20px; background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M7 2l12 11.2-5.8.5 3.3 7.3-2.2.9-3.2-7.4-4.4 4.6z"/></svg>') no-repeat; background-size: contain; z-index: 20; transition: all 0.5s ease; filter: drop-shadow(0 2px 2px rgba(0,0,0,0.3)); }
+
+        /* Upload Progress */
+        .upload-chip { position: absolute; bottom: 90px; right: 40px; width: 120px; height: 40px; background: #e8f0fe; border-radius: 8px; border: 1px solid #d2e3fc; display: flex; align-items: center; padding: 0 10px; opacity: 0; transform: translateY(10px); transition: all 0.3s ease; }
+        .chip-icon { color: #ea4335; margin-left: 8px; }
+        .chip-text { font-size: 12px; color: #1967d2; }
+        .chip-loader { width: 12px; height: 12px; border: 2px solid #1967d2; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; margin-right: auto; }
+        
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Animation Classes */
+        .animate-drag { animation: dragMove 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .animate-file-move { animation: fileDrop 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+        @keyframes dragMove {
+            0% { top: 100px; right: 100px; transform: scale(1); }
+            20% { top: 70px; right: 60px; transform: scale(1); } /* Grab file */
+            60% { top: 220px; right: 300px; transform: scale(1); } /* Move to chat */
+            80% { top: 220px; right: 300px; transform: scale(0.9); } /* Drop */
+            100% { top: 250px; right: 50px; opacity: 0; } /* Reset */
+        }
+
+        @keyframes fileDrop {
+            0% { top: 40px; right: 40px; transform: rotate(0deg); }
+            20% { top: 45px; right: 45px; transform: rotate(5deg) scale(1.1); box-shadow: 0 15px 30px rgba(0,0,0,0.2); } /* Lifted */
+            60% { top: 200px; right: 280px; transform: rotate(-5deg) scale(0.8); } /* Over drop zone */
+            70% { opacity: 1; }
+            80% { top: 210px; right: 280px; opacity: 0; transform: scale(0.1); } /* Poof into chat */
+            100% { opacity: 0; }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="demo-container">
+    <div class="cursor" id="cursor"></div>
+    
+    <div class="desktop-file" id="file">
+        <div class="file-icon">📄</div>
+        <div class="file-name">Report.pdf</div>
+    </div>
+
+    <div class="upload-chip" id="upload-ui">
+        <div class="chip-icon">📄</div>
+        <div class="chip-text">Report.pdf</div>
+        <div class="chip-loader"></div>
+    </div>
+
+    <div class="chat-bar">
+        <div class="plus-btn">+</div>
+        <div class="input-placeholder">שאל את Gemini או העלה קובץ...</div>
+        <div class="send-btn">➤</div>
+    </div>
+</div>
+
+<script>
+    function playAnimation() {
+        const cursor = document.getElementById('cursor');
+        const file = document.getElementById('file');
+        const uploadUi = document.getElementById('upload-ui');
+
+        // Reset
+        cursor.style.animation = 'none';
+        file.style.animation = 'none';
+        uploadUi.style.opacity = '0';
+        uploadUi.style.transform = 'translateY(10px)';
+
+        setTimeout(() => {
+            cursor.style.animation = 'dragMove 3s forwards';
+            file.style.animation = 'fileDrop 3s forwards';
+        }, 100);
+
+        // Show upload success
+        setTimeout(() => {
+            uploadUi.style.opacity = '1';
+            uploadUi.style.transform = 'translateY(0)';
+        }, 2400); // Sync with drop time
+    }
+
+    // Loop
+    playAnimation();
+    setInterval(playAnimation, 5000); // Replay every 5s
+</script>
+
+</body>
+</html>
