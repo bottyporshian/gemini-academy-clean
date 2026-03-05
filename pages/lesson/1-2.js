@@ -222,21 +222,25 @@ const FileUploadSimulation = () => {
 
   useEffect(() => {
     const cycle = async () => {
-      // 0: Start (Cursor on file)
+      // 0: Start (Cursor near files)
       setStep(0);
       await new Promise(r => setTimeout(r, 1000));
       
-      // 1: Drag Start (Grab File)
+      // 1: Select (Highlight all 3)
       setStep(1);
-      await new Promise(r => setTimeout(r, 1000));
-      
-      // 2: Drag Over Chat (Drop Zone Active)
+      await new Promise(r => setTimeout(r, 800));
+
+      // 2: Drag Start (Grab Stack)
       setStep(2);
       await new Promise(r => setTimeout(r, 1000));
-
-      // 3: Drop (File appears in chat)
+      
+      // 3: Drag Over Chat (Drop Zone Active)
       setStep(3);
-      await new Promise(r => setTimeout(r, 2500));
+      await new Promise(r => setTimeout(r, 1000));
+
+      // 4: Drop (Files appear in chat)
+      setStep(4);
+      await new Promise(r => setTimeout(r, 3000));
       
       cycle();
     };
@@ -245,10 +249,11 @@ const FileUploadSimulation = () => {
 
   const getCursorPos = () => {
      switch(step) {
-        case 0: return { top: '30%', left: '80%' }; // On Desktop File
-        case 1: return { top: '30%', left: '80%' }; // Grab
-        case 2: return { top: '75%', left: '50%' }; // Over Chat Input
-        case 3: return { top: '75%', left: '50%' }; // Release
+        case 0: return { top: '30%', left: '85%' }; // Start
+        case 1: return { top: '30%', left: '75%' }; // Select Sweep
+        case 2: return { top: '35%', left: '80%' }; // Grab Center
+        case 3: return { top: '75%', left: '50%' }; // Over Chat
+        case 4: return { top: '75%', left: '50%' }; // Release
         default: return { top: '50%', left: '50%' };
      }
   };
@@ -258,20 +263,38 @@ const FileUploadSimulation = () => {
       
       {/* BACKGROUND: DESKTOP WALLPAPER */}
       <div className="absolute inset-0 bg-slate-100">
-         {/* Desktop Icons */}
-         <div className="absolute top-8 right-8 flex flex-col items-center gap-2">
-            <motion.div 
-               animate={step === 1 || step === 2 ? { opacity: 0.5, scale: 0.9 } : { opacity: 1, scale: 1 }}
-               className="w-12 h-14 bg-white border border-slate-300 shadow-sm rounded flex items-center justify-center"
-            >
-               <FileText className="text-red-500 w-6 h-6" />
-            </motion.div>
-            <span className="text-[10px] text-slate-600 font-medium">Contract.pdf</span>
+         {/* Desktop Icons (3 Files) */}
+         <div className="absolute top-6 right-6 flex gap-4">
+            {[ 
+               { name: "Report.pdf", color: "text-red-500", bg: "bg-red-50" },
+               { name: "Data.csv", color: "text-green-500", bg: "bg-green-50" },
+               { name: "Image.png", color: "text-blue-500", bg: "bg-blue-50" }
+            ].map((file, i) => (
+               <motion.div 
+                  key={i}
+                  animate={step >= 1 && step <= 3 ? { scale: 0.9, opacity: 0.5, y: -5 } : { scale: 1, opacity: 1, y: 0 }}
+                  className={`flex flex-col items-center gap-2 transition-all ${step === 1 ? 'ring-2 ring-blue-400 rounded-lg bg-blue-50/50 p-1' : ''}`}
+               >
+                  <div className={`w-10 h-12 bg-white border border-slate-200 shadow-sm rounded flex items-center justify-center`}>
+                     <FileText className={`${file.color} w-5 h-5`} />
+                  </div>
+                  <span className="text-[9px] text-slate-500 font-medium">{file.name}</span>
+               </motion.div>
+            ))}
          </div>
+         
+         {/* Selection Box Simulation */}
+         {step === 1 && (
+            <motion.div 
+               initial={{ width: 0, opacity: 0 }}
+               animate={{ width: 180, height: 80, opacity: 0.2 }}
+               className="absolute top-4 right-4 bg-blue-500 border border-blue-600 rounded"
+            />
+         )}
       </div>
 
       {/* GEMINI CHAT INTERFACE (Bottom Half) */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-white rounded-t-2xl shadow-lg border-t border-slate-200 p-4">
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-white rounded-t-2xl shadow-lg border-t border-slate-200 p-4 z-10">
          <div className="flex items-center gap-2 mb-2">
             <img src="https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg" alt="" className="w-5 h-5" />
             <span className="text-sm font-medium text-slate-700">Gemini</span>
@@ -279,47 +302,60 @@ const FileUploadSimulation = () => {
 
          {/* Input Area (Drop Zone) */}
          <motion.div 
-            animate={step === 2 ? { borderColor: '#1a73e8', backgroundColor: '#e8f0fe' } : { borderColor: '#e2e8f0', backgroundColor: '#f8fafc' }}
-            className="w-full h-16 border-2 border-dashed rounded-xl flex items-center px-4 relative transition-colors"
+            animate={step === 3 ? { borderColor: '#1a73e8', backgroundColor: '#e8f0fe' } : { borderColor: '#e2e8f0', backgroundColor: '#f8fafc' }}
+            className="w-full h-16 border-2 border-dashed rounded-xl flex items-center px-4 relative transition-colors overflow-hidden"
          >
-            {/* The Plus Button */}
-            <div className="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center mr-3 text-slate-500 font-bold">+</div>
+            <div className="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center mr-3 text-slate-500 font-bold shrink-0">+</div>
             
-            <AnimatePresence>
-               {step === 3 ? (
+            <AnimatePresence mode="wait">
+               {step === 4 ? (
                   <motion.div 
-                     initial={{ scale: 0, opacity: 0 }}
-                     animate={{ scale: 1, opacity: 1 }}
-                     className="px-3 py-1 bg-white border border-slate-300 rounded-lg flex items-center gap-2 shadow-sm"
+                     initial={{ opacity: 0, y: 10 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     className="flex gap-2 overflow-x-auto"
                   >
-                     <FileText className="w-4 h-4 text-red-500" />
-                     <span className="text-xs font-medium text-slate-700">Contract.pdf</span>
-                     <div className="w-3 h-3 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                     {/* 3 Uploaded Files Pills */}
+                     {[ "Report.pdf", "Data.csv", "Image.png" ].map((name, i) => (
+                        <div key={i} className="px-3 py-1 bg-white border border-slate-300 rounded-lg flex items-center gap-2 shadow-sm shrink-0">
+                           <FileText className="w-3 h-3 text-slate-500" />
+                           <span className="text-[10px] font-medium text-slate-700">{name}</span>
+                           <div className="w-2 h-2 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                     ))}
                   </motion.div>
                ) : (
-                  <span className="text-slate-400 text-sm">Type a message or drag a file...</span>
+                  <span className="text-slate-400 text-sm truncate">Type a message or drag files...</span>
                )}
             </AnimatePresence>
          </motion.div>
       </div>
 
-      {/* DRAGGED FILE (Ghost) */}
-      {(step === 1 || step === 2) && (
+      {/* DRAGGED STACK (Ghost) */}
+      {(step === 2 || step === 3) && (
          <motion.div
-            className="absolute z-40 pointer-events-none"
+            className="absolute z-50 pointer-events-none"
             initial={getCursorPos()}
             animate={getCursorPos()}
             transition={{ type: "spring", stiffness: 120, damping: 20 }}
          >
-            <div className="w-12 h-14 bg-white border border-slate-300 shadow-xl rounded flex items-center justify-center rotate-6 opacity-90 -mt-6 -ml-6">
-               <FileText className="text-red-500 w-6 h-6" />
+            <div className="relative -mt-8 -ml-8">
+               <div className="absolute top-0 left-0 w-12 h-14 bg-white border border-slate-300 shadow-xl rounded flex items-center justify-center rotate-12 z-10">
+                  <FileText className="text-blue-500 w-6 h-6" />
+               </div>
+               <div className="absolute top-1 left-1 w-12 h-14 bg-white border border-slate-300 shadow-xl rounded flex items-center justify-center rotate-6 z-20">
+                  <FileText className="text-green-500 w-6 h-6" />
+               </div>
+               <div className="absolute top-2 left-2 w-12 h-14 bg-white border border-slate-300 shadow-xl rounded flex items-center justify-center z-30">
+                  <FileText className="text-red-500 w-6 h-6" />
+                  <div className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-white">3</div>
+               </div>
             </div>
          </motion.div>
       )}
 
       {/* CURSOR */}
       <motion.div
-         className="absolute z-50 pointer-events-none drop-shadow-xl"
+         className="absolute z-[60] pointer-events-none drop-shadow-xl"
          animate={getCursorPos()}
          transition={{ type: "spring", stiffness: 120, damping: 20 }}
       >

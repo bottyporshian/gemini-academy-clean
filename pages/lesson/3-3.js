@@ -1,140 +1,156 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ArrowLeft, BookOpen, PenTool, Copy, Check } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowLeft, ArrowRight, Video, Image as ImageIcon, Wand2, Play, Zap, Film } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Lesson3_3 = () => {
-  const [copied, setCopied] = useState(null);
-
-  const copyToClipboard = (text, id) => {
-    navigator.clipboard.writeText(text);
-    setCopied(id);
-    setTimeout(() => setCopied(null), 2000);
-  };
-
   return (
     <>
       <Head>
-        <title>Lesson 3.3: Guided Practice Workshop | Gemini Academy</title>
-        <meta name="description" content="3 real-world exercises to test your prompt engineering skills. Email, Summary, and Idea Generation." />
+        <title>Lesson 3.3: Video Creation with Veo | Gemini Academy</title>
+        <meta name="description" content="Turn text and images into video using Google's Veo model inside Gemini. Create commercials from static photos." />
       </Head>
 
-      <div className="bg-white min-h-screen font-sans text-gray-900">
-        <nav className="border-b border-gray-200 sticky top-0 bg-white/80 backdrop-blur-md z-50">
-          <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link href="/syllabus" className="text-gray-600 hover:text-blue-600 flex items-center gap-2 font-medium transition-colors">
-              <ArrowLeft className="w-4 h-4" /> Back to Syllabus
-            </Link>
-            <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">
-              Module 3: Prompt Engineering
-            </span>
-          </div>
-        </nav>
+      <div className="bg-slate-50 min-h-screen font-sans text-slate-900">
+        <div className="fixed top-0 left-0 w-full h-1 bg-slate-200 z-50">
+          <div className="h-full bg-gradient-to-r from-pink-600 to-purple-600 w-[65%]"></div>
+        </div>
 
-        <main className="max-w-3xl mx-auto px-6 py-12">
-          <header className="mb-12">
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 text-gray-900 leading-tight">
-              Guided Practice Workshop
+        <div className="max-w-4xl mx-auto px-6 py-16">
+          <div className="flex items-center gap-2 text-sm text-slate-500 mb-12 font-medium">
+            <Link href="/syllabus" className="hover:text-blue-600 transition-colors">Syllabus</Link>
+            <span>/</span>
+            <Link href="/lesson/3-2" className="hover:text-blue-600 transition-colors">3.2 Video Analysis</Link>
+            <span>/</span>
+            <span className="text-slate-900">3.3 Video Creation (Veo)</span>
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-16 text-center"
+          >
+            <span className="inline-block px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-bold tracking-wide uppercase mb-4">Module 3 • Multimedia</span>
+            <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 pb-2">
+              From Static to Magic: <br />
+              <span className="text-slate-800">Creating Video.</span>
             </h1>
-            <div className="flex items-center gap-6 text-gray-500 text-sm">
-              <span className="flex items-center gap-2"><BookOpen className="w-4 h-4" /> 30 min practice</span>
-              <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wide">Hands On</span>
-            </div>
-          </header>
-
-          <article className="prose prose-lg prose-blue max-w-none">
-            <p className="lead text-xl text-gray-600">
-              Reading is not enough. Copy these prompts, paste them into Gemini, and see the magic happen.
+            <p className="text-2xl text-slate-600 leading-relaxed max-w-2xl mx-auto font-light">
+              Meet <strong>Veo</strong>, Google's generative video model. It can turn a simple sentence—or a boring photo—into a cinematic movie.
             </p>
+          </motion.div>
 
-            {/* Exercise 1 */}
-            <div className="my-10">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-blue-100 p-2 rounded-lg"><PenTool className="w-6 h-6 text-blue-600" /></div>
-                <h2 className="m-0 text-2xl font-bold">Exercise 1: The "Tough Email"</h2>
-              </div>
-              <p><strong>Scenario:</strong> You need to tell a client that their project will be late by one week because of a technical issue.</p>
-              
-              <div className="relative group">
-                <div className="bg-gray-900 text-gray-200 p-6 rounded-xl font-mono text-sm leading-relaxed">
-                  "Act as a senior project manager. Write an email to a client (John) explaining that the 'Website Redesign' project will be delayed by one week due to unexpected server issues. <br/><br/>
-                  Key points:<br/>
-                  - Apologize sincerely but confidently.<br/>
-                  - Explain the issue briefly (don't get too technical).<br/>
-                  - Offer a 5% discount on the next invoice as a goodwill gesture.<br/>
-                  - Format: Professional email with a clear subject line."
+          {/* Intro Grid */}
+          <div className="grid md:grid-cols-2 gap-6 mb-24 max-w-2xl mx-auto">
+             <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-4"><Zap className="w-5 h-5 text-purple-600" /></div>
+                <h3 className="font-bold text-slate-900 mb-2">Text-to-Video</h3>
+                <p className="text-sm text-slate-600">Type "A cyberpunk city in rain" and watch it come alive.</p>
+             </div>
+             <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                <div className="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center mb-4"><ImageIcon className="w-5 h-5 text-pink-600" /></div>
+                <h3 className="font-bold text-slate-900 mb-2">Image-to-Video</h3>
+                <p className="text-sm text-slate-600"><strong>The Whiskey Trick:</strong> Turn product photos into commercials.</p>
+             </div>
+          </div>
+
+          {/* PART 1: TEXT TO VIDEO */}
+          <div className="mb-24">
+             <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold mb-4">1. Text-to-Video</h2>
+                <p className="text-slate-600">Just like image generation, but it moves. Keep prompts short and descriptive.</p>
+             </div>
+             
+             <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl relative overflow-hidden text-center">
+                <div className="inline-block bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-left max-w-lg mx-auto mb-8">
+                   <p className="text-xs text-slate-400 uppercase font-bold mb-2">The Prompt:</p>
+                   <p className="font-mono text-lg text-purple-300">"Cinematic drone shot of a futuristic city with neon lights, 4k, realistic"</p>
                 </div>
-                <button 
-                  onClick={() => copyToClipboard("Act as a senior project manager...", 1)}
-                  className="absolute top-4 right-4 bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg transition-colors"
-                >
-                  {copied === 1 ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
-
-            <hr className="border-gray-200 my-10" />
-
-            {/* Exercise 2 */}
-            <div className="my-10">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-purple-100 p-2 rounded-lg"><PenTool className="w-6 h-6 text-purple-600" /></div>
-                <h2 className="m-0 text-2xl font-bold">Exercise 2: The "Idea Machine"</h2>
-              </div>
-              <p><strong>Scenario:</strong> You are stuck and need ideas for a child's birthday party.</p>
-              
-              <div className="relative group">
-                <div className="bg-gray-900 text-gray-200 p-6 rounded-xl font-mono text-sm leading-relaxed">
-                  "I am planning a birthday party for a 7-year-old girl who loves space and dinosaurs. <br/><br/>
-                  Action: Brainstorm 10 creative party themes that combine these two interests.<br/>
-                  Format: A numbered list. For each theme, suggest one activity and one snack idea.<br/>
-                  Tone: Fun and exciting."
+                <div className="aspect-video bg-black rounded-xl overflow-hidden relative group max-w-2xl mx-auto border border-slate-700">
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <Play className="w-16 h-16 text-white opacity-50 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    <div className="absolute bottom-4 left-4 text-xs text-white/50">Generated with Veo</div>
                 </div>
-                <button 
-                  onClick={() => copyToClipboard("I am planning a birthday party...", 2)}
-                  className="absolute top-4 right-4 bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg transition-colors"
-                >
-                  {copied === 2 ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
+             </div>
+          </div>
 
-            <hr className="border-gray-200 my-10" />
+          {/* PART 2: THE WHISKEY TRICK (IMAGE TO VIDEO) */}
+          <div className="mb-24">
+             <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold mb-4">2. The "Whiskey Commercial" Trick</h2>
+                <p className="text-slate-600">How to turn a boring product photo into a luxury ad.</p>
+             </div>
+             
+             <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+                <div className="grid md:grid-cols-2">
+                    {/* LEFT: INPUT */}
+                    <div className="p-10 border-r border-slate-100 bg-slate-50">
+                        <h3 className="font-bold text-slate-500 uppercase text-xs mb-6">Step 1: The Input</h3>
+                        <div className="mb-6">
+                            <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 inline-block rotate-[-2deg]">
+                                <img src="/api/placeholder/400/300" alt="Static Whiskey Bottle" className="rounded-lg mb-2 opacity-50" />
+                                <p className="text-xs text-center text-slate-400">static_bottle.jpg</p>
+                            </div>
+                        </div>
+                        <div className="bg-white p-4 rounded-xl border border-slate-200">
+                            <p className="text-xs text-slate-400 font-bold mb-2">THE PROMPT:</p>
+                            <p className="font-mono text-sm text-slate-700">
+                                "Turn this image into a cinematic commercial. Slow zoom in. 
+                                <span className="bg-yellow-100 text-yellow-800 px-1">Amber liquid swirling</span> inside the bottle. 
+                                <span className="bg-yellow-100 text-yellow-800 px-1">Dim luxury bar lighting</span> in the background. 
+                                4k, high resolution."
+                            </p>
+                        </div>
+                    </div>
 
-            {/* Exercise 3 */}
-            <div className="my-10">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="bg-green-100 p-2 rounded-lg"><PenTool className="w-6 h-6 text-green-600" /></div>
-                <h2 className="m-0 text-2xl font-bold">Exercise 3: The "Simplifier"</h2>
-              </div>
-              <p><strong>Scenario:</strong> You found a complex text about Quantum Physics and want to explain it to a kid.</p>
-              
-              <div className="relative group">
-                <div className="bg-gray-900 text-gray-200 p-6 rounded-xl font-mono text-sm leading-relaxed">
-                  [Paste any complex text here, e.g., a Wikipedia paragraph]<br/><br/>
-                  "Explain the text above to a 10-year-old. Use an analogy involving cars or video games to make it easy to understand."
+                    {/* RIGHT: OUTPUT (SIMULATION) */}
+                    <div className="p-10 bg-slate-900 text-white flex flex-col justify-center items-center relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-black"></div>
+                        <h3 className="font-bold text-white/50 uppercase text-xs mb-6 relative z-10">Step 2: The Result</h3>
+                        
+                        <div className="relative z-10 w-full aspect-[9/16] max-w-[200px] bg-black rounded-2xl overflow-hidden shadow-2xl border border-amber-500/30 group">
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20"></div>
+                            
+                            {/* Simulated Video Content */}
+                            <div className="absolute inset-0 flex items-center justify-center bg-amber-900/20">
+                                <motion.div 
+                                    animate={{ scale: [1, 1.1], rotate: [0, 1] }}
+                                    transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
+                                    className="w-full h-full bg-amber-800/10 flex items-center justify-center"
+                                >
+                                    <span className="text-6xl">🥃</span>
+                                </motion.div>
+                            </div>
+
+                            <div className="absolute bottom-6 left-0 w-full text-center z-30">
+                                <p className="text-amber-100 font-serif text-lg tracking-widest">GOLD LABEL</p>
+                                <p className="text-amber-100/60 text-[8px] uppercase tracking-[0.2em]">Est. 1894</p>
+                            </div>
+                            
+                            <div className="absolute top-4 right-4 z-30">
+                                <span className="bg-black/50 text-white text-[8px] px-1.5 py-0.5 rounded backdrop-blur-md border border-white/10">AI GENERATED</span>
+                            </div>
+                        </div>
+                        
+                        <p className="mt-6 text-sm text-slate-400 text-center relative z-10 max-w-xs">
+                            Gemini understands the physics of liquid and lighting, creating movement where there was none.
+                        </p>
+                    </div>
                 </div>
-                <button 
-                  onClick={() => copyToClipboard("Explain the text above...", 3)}
-                  className="absolute top-4 right-4 bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg transition-colors"
-                >
-                  {copied === 3 ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-                </button>
-              </div>
-            </div>
+             </div>
+          </div>
 
-          </article>
-
-          <div className="mt-16 flex justify-between items-center pt-8 border-t border-gray-200">
-            <Link href="/lesson/3-2" className="text-gray-500 hover:text-gray-900 font-medium transition-colors">
-              &larr; Previous Lesson
+          <div className="flex justify-between items-center pt-8 border-t border-slate-200">
+            <Link href="/lesson/3-2" className="flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors group">
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Previous
             </Link>
-            <Link href="/syllabus" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold transition-colors shadow-lg">
-              Finish Module 3 &rarr;
+            <Link href="/lesson/4-1" className="flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-full font-bold hover:bg-slate-800 transition-all shadow-lg hover:shadow-slate-900/20 group">
+              Module 4: Workspace <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
-        </main>
+        </div>
       </div>
     </>
   );

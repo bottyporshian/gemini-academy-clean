@@ -8,24 +8,28 @@ const Hero = () => {
   return (
     <>
       <Head>
-        <title>How to Use Gemini 3 | Free Course & Guide 2026</title>
-        <meta name="description" content="Learn exactly how to use Gemini 3. The #1 Free Tutorial covering Gemini 3.1 features, workspace integration, and prompt engineering." />
-        <meta name="keywords" content="how can i use gemini 3, how to use gemini 3, Google Gemini 3.1, Gemini Course Free, Zero-Click Search, Multimodal AI" />
-        <meta property="og:title" content="Master Google Gemini 3.1 - Free Course 2026" />
-        <meta property="og:description" content="Don't get left behind. Join 10,000+ students mastering Gemini 3.1, Prompt Engineering, and Workspace AI." />
-        <meta property="og:image" content="https://gemini-academy-start.surge.sh/og-image.jpg" />
+        <title>How to Use Gemini 3 | The #1 Free AI Course & Guide 2026</title>
+        <meta name="description" content="Master Google Gemini 3.1 with our free, interactive course. Learn prompt engineering, workspace automation, and image generation (Imagen 3). Start from zero." />
+        <meta name="keywords" content="how to use gemini 3, google gemini course free, gemini 3.1 features, gemini vs chatgpt 2026, android gemini integration, google workspace ai automation, learn ai for free, imagen 3 tutorial, prompt engineering guide, ai agent tutorials 2026" />
+        <meta property="og:title" content="The Ultimate Free Guide to Google Gemini 3 (2026)" />
+        <meta property="og:description" content="Don't just chat. Master reasoning. Join 10,000+ students learning to automate their life with Gemini." />
+        <meta property="og:image" content="https://geminiacademy.co/og-image.jpg" />
+        <meta property="og:url" content="https://geminiacademy.co/" />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href="https://geminiacademy.co/" />
+        <meta name="twitter:card" content="summary_large_image" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Course",
-              "name": "Master Google Gemini 3.1",
+              "name": "Gemini Academy: Zero to Hero",
               "description": "A comprehensive free course to master Google Gemini AI, prompt engineering, and productivity workflows.",
               "provider": {
                 "@type": "Organization",
                 "name": "Gemini Academy",
-                "sameAs": "https://gemini-academy-start.surge.sh"
+                "sameAs": "https://geminiacademy.co"
               },
               "offers": {
                 "@type": "Offer",
@@ -36,7 +40,7 @@ const Hero = () => {
               "hasCourseInstance": {
                 "@type": "CourseInstance",
                 "courseMode": "Online",
-                "courseWorkload": "PT7D"
+                "courseWorkload": "PT2H"
               }
             })
           }}

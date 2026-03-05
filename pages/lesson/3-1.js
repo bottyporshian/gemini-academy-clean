@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Image as ImageIcon, Camera, Palette, Wand2 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Image as ImageIcon, Camera, Palette, Wand2, Send, Sparkles, Banana, Check } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Lesson3_1 = () => {
   return (
@@ -60,6 +60,21 @@ const Lesson3_1 = () => {
              </div>
           </div>
 
+          {/* SIMULATION: IMAGE GENERATION */}
+          <div className="mb-24">
+             <div className="text-center mb-10">
+                <h2 className="text-3xl font-bold mb-4">Watch: From Text to Image</h2>
+                <p className="text-slate-600">See how writing a detailed prompt creates a masterpiece.</p>
+             </div>
+             
+             <div className="bg-slate-900 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                <div className="relative z-10 max-w-3xl mx-auto">
+                   <ImageGenSimulation />
+                </div>
+             </div>
+          </div>
+
           {/* The Prompt Recipe */}
           <div className="mb-24 bg-gradient-to-br from-slate-900 to-slate-800 text-white p-10 rounded-3xl shadow-2xl relative overflow-hidden">
              <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500 rounded-full blur-[100px] opacity-20"></div>
@@ -87,7 +102,7 @@ const Lesson3_1 = () => {
                 <div className="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20">
                    <p className="text-xs text-slate-400 uppercase font-bold mb-4">Try this prompt:</p>
                    <p className="font-mono text-sm text-pink-200 mb-6">
-                      "Generate an image of a futuristic eco-city <span className="text-white/50">(Subject)</span> built into a vertical jungle cliff <span className="text-white/50">(Setting)</span>. Cinematic lighting, photorealistic, 8k resolution, wide angle shot <span className="text-white/50">(Style)</span>."
+                      "create me a super girl flying at the sky with pink and purple uniform with the letter G for girl on her uniform holding big stone on her back"
                    </p>
                    <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" className="block text-center bg-white text-slate-900 py-3 rounded-lg font-bold hover:bg-slate-200 transition-colors">
                       Generate Now
@@ -109,5 +124,230 @@ const Lesson3_1 = () => {
     </>
   );
 };
+
+// --- MINI TUTORIAL VIDEO: IMAGE GEN ---
+const ImageGenSimulation = () => {
+   const [step, setStep] = useState(0); 
+   const promptText = "create me a super girl flying at the sky with pink and purple uniform with the letter G for girl on her uniform holding big stone on her back";
+
+   useEffect(() => {
+     const cycle = async () => {
+       // 0: Start (Empty)
+       setStep(0);
+       await new Promise(r => setTimeout(r, 1000));
+       
+       // 1: Typing
+       setStep(1);
+       await new Promise(r => setTimeout(r, promptText.length * 30)); 
+       
+       // 2: Click Tools
+       setStep(2);
+       await new Promise(r => setTimeout(r, 1000));
+
+       // 3: Select Nano Banana 2
+       setStep(3);
+       await new Promise(r => setTimeout(r, 1000));
+
+       // 4: Click Create Image (Bottom)
+       setStep(4);
+       await new Promise(r => setTimeout(r, 800));
+
+       // 5: Loading
+       setStep(5);
+       await new Promise(r => setTimeout(r, 3000));
+
+       // 6: Show Image
+       setStep(6);
+       await new Promise(r => setTimeout(r, 6000));
+       
+       cycle();
+     };
+     cycle();
+   }, []);
+
+   const getCursorPos = () => {
+      switch(step) {
+         case 0: return { top: '50%', left: '50%' };
+         case 1: return { top: '50%', left: '50%' }; // Typing
+         case 2: return { top: '65%', left: '20%' }; // Tools button location
+         case 3: return { top: '58%', left: '20%' }; // Dropdown item location (Nano Banana)
+         case 4: return { top: '85%', left: '15%' }; // Create Image button (Bottom Left)
+         case 5: return { top: '85%', left: '15%' }; 
+         case 6: return { top: '50%', left: '90%' };
+         default: return { top: '50%', left: '50%' };
+      }
+   };
+
+   return (
+      <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden flex flex-col h-[550px] relative">
+         {/* Chat Interface */}
+         <div className="flex-1 p-6 flex flex-col relative bg-[#F0F4F9]">
+            
+            {/* Header: Hi Motty (Removed as requested) */}
+            {step === 0 && (
+               <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="mb-8"
+               >
+                  <h1 className="text-4xl text-[#C4C7C5] font-medium">Where should we start?</h1>
+               </motion.div>
+            )}
+
+            {/* User Bubble */}
+            <AnimatePresence>
+               {(step >= 1) && (
+                  <motion.div 
+                     initial={{ opacity: 0, y: 10 }}
+                     animate={{ opacity: 1, y: 0 }}
+                     className="bg-[#f0f4f9] border border-slate-200 text-slate-800 p-6 rounded-[2rem] w-full mb-6 shadow-sm min-h-[140px] relative transition-all"
+                  >
+                     <div className="text-lg text-slate-700 leading-relaxed font-sans">
+                        {step === 1 ? <Typewriter text={promptText} speed={30} /> : promptText}
+                     </div>
+                     
+                     {/* Input Actions Bar */}
+                     <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-100 relative">
+                        <div className="flex gap-4">
+                           <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-full border border-slate-200 shadow-sm cursor-pointer hover:bg-slate-50">
+                              <PlusCircle className="w-4 h-4 text-slate-500" />
+                           </div>
+                           
+                           {/* TOOLS BUTTON */}
+                           <motion.div 
+                              animate={step === 2 ? { scale: 0.95, backgroundColor: '#f1f5f9' } : { scale: 1, backgroundColor: '#ffffff' }}
+                              className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-full border border-slate-200 shadow-sm cursor-pointer relative"
+                           >
+                              <SettingsIcon className="w-4 h-4 text-slate-500" /> <span className="text-xs font-medium text-slate-600">Tools</span>
+                              
+                              {/* TOOLS DROPDOWN */}
+                              <AnimatePresence>
+                                 {(step === 2 || step === 3) && (
+                                    <motion.div 
+                                       initial={{ opacity: 0, y: 10 }}
+                                       animate={{ opacity: 1, y: 0 }}
+                                       exit={{ opacity: 0, y: 10 }}
+                                       className="absolute bottom-full left-0 mb-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 p-1 z-50 overflow-hidden"
+                                    >
+                                       <div className="px-3 py-2 text-[10px] text-slate-400 font-bold uppercase tracking-wider">Extensions</div>
+                                       <motion.div 
+                                          animate={step === 3 ? { backgroundColor: '#eff6ff' } : { backgroundColor: 'transparent' }}
+                                          className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer"
+                                       >
+                                          <Banana className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                                          <span className="text-sm font-medium text-slate-700">Image Nano Banana 2</span>
+                                          {step === 3 && <Check className="w-3 h-3 text-blue-500 ml-auto" />}
+                                       </motion.div>
+                                       <div className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-slate-50 opacity-50">
+                                          <Wand2 className="w-4 h-4 text-slate-400" />
+                                          <span className="text-sm font-medium text-slate-600">Standard Gen</span>
+                                       </div>
+                                    </motion.div>
+                                 )}
+                              </AnimatePresence>
+                           </motion.div>
+                        </div>
+                        <div className="flex items-center gap-4">
+                           <span className="text-xs font-medium text-slate-500">Fast</span>
+                           <div className="w-8 h-8 bg-slate-900 rounded-full flex items-center justify-center text-white">
+                              <ArrowRight className="w-4 h-4" />
+                           </div>
+                        </div>
+                     </div>
+                  </motion.div>
+               )}
+            </AnimatePresence>
+
+            {/* Gemini Response Area */}
+            <div className="flex-1 flex items-center justify-center min-h-[250px]">
+               <AnimatePresence mode="wait">
+                  {step === 5 && (
+                     <motion.div 
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 1.1 }}
+                        className="flex flex-col items-center gap-4"
+                     >
+                        <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-full animate-spin blur-sm"></div>
+                        <p className="text-slate-500 font-medium animate-pulse flex items-center gap-2">
+                           <Banana className="w-4 h-4 text-yellow-500" /> Generating with Nano Banana...
+                        </p>
+                     </motion.div>
+                  )}
+
+                  {step === 6 && (
+                     <motion.div 
+                        initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        className="relative w-full h-full rounded-2xl overflow-hidden shadow-md border-4 border-white"
+                     >
+                        {/* THE SUPER GIRL IMAGE */}
+                        <img 
+                           src="/supergirl.png"
+                           alt="Super Girl" 
+                           className="w-full h-full object-cover"
+                        />
+                        <div className="absolute bottom-3 right-3 bg-black/60 text-white text-[10px] px-2 py-1 rounded backdrop-blur-sm flex items-center gap-1">
+                           <Banana className="w-3 h-3 text-yellow-400" /> Generated with Nano Banana 2
+                        </div>
+                     </motion.div>
+                  )}
+               </AnimatePresence>
+            </div>
+         </div>
+
+         {/* Bottom Action Bar (Banana Button) */}
+         <div className="bg-white p-4 border-t border-slate-200 relative z-10">
+            <div className="flex gap-2 overflow-x-auto pb-2">
+               {/* BANANA BUTTON - TARGET FOR CLICK */}
+               <motion.button 
+                  animate={step === 4 ? { scale: 0.9, backgroundColor: "#e2e8f0" } : { scale: 1, backgroundColor: "#f1f5f9" }}
+                  className="flex items-center gap-2 px-6 py-3 bg-slate-100 rounded-full hover:bg-slate-200 transition-colors shrink-0 border border-slate-200"
+               >
+                  <Banana className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                  <span className="text-sm font-bold text-slate-700">Create image</span>
+               </motion.button>
+
+               <button className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 rounded-full hover:bg-slate-50 transition-colors shrink-0">
+                  <span className="text-red-500">🎸</span> <span className="text-sm font-medium text-slate-600">Create music</span>
+               </button>
+               <button className="flex items-center gap-2 px-6 py-3 bg-white border border-slate-200 rounded-full hover:bg-slate-50 transition-colors shrink-0">
+                  <span className="text-sm font-medium text-slate-600">Write anything</span>
+               </button>
+            </div>
+         </div>
+
+         {/* Cursor */}
+         <motion.div 
+            animate={getCursorPos()}
+            className="absolute w-8 h-8 pointer-events-none z-50 drop-shadow-xl hidden md:block"
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+         >
+             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19823L11.4818 12.3673H5.65376Z" fill="black" stroke="white" strokeWidth="1.5"/>
+             </svg>
+         </motion.div>
+      </div>
+   );
+};
+
+const Typewriter = ({ text, speed }) => {
+   const [display, setDisplay] = useState('');
+   useEffect(() => {
+      let i = 0;
+      const timer = setInterval(() => {
+         setDisplay(text.substring(0, i));
+         i++;
+         if (i > text.length) clearInterval(timer);
+      }, speed);
+      return () => clearInterval(timer);
+   }, [text, speed]);
+   return <span>{display}</span>;
+}
+
+// Icons
+const PlusCircle = ({className}) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>)
+const SettingsIcon = ({className}) => (<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>)
 
 export default Lesson3_1;

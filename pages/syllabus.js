@@ -7,8 +7,39 @@ const Syllabus = () => {
   return (
     <>
       <Head>
-        <title>Syllabus | Gemini Academy</title>
-        <meta name="description" content="Complete curriculum for mastering Google Gemini. From beginner basics to advanced API integration." />
+        <title>Syllabus | Gemini Academy: The Complete Roadmap</title>
+        <meta name="description" content="From beginner to expert. Our step-by-step curriculum covers everything: Text generation, Image creation, and Workspace automation." />
+        <meta property="og:title" content="Gemini Academy Curriculum (2026)" />
+        <meta property="og:description" content="View the full roadmap. 5 Modules, 12 Lessons. Free forever." />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Fundamentals (Gemini vs ChatGPT)",
+                  "url": "https://geminiacademy.co/lesson/1-1"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Prompt Mastery (C.T.F.P Formula)",
+                  "url": "https://geminiacademy.co/lesson/2-1"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "Multimedia (Imagen 3)",
+                  "url": "https://geminiacademy.co/lesson/3-1"
+                }
+              ]
+            })
+          }}
+        />
       </Head>
 
       <div className="bg-slate-50 min-h-screen font-sans text-slate-900">
@@ -55,6 +86,7 @@ const Syllabus = () => {
             >
               <LessonRow id="3.1" title="Generating Images (Imagen 3)" link="/lesson/3-1" status="ready" />
               <LessonRow id="3.2" title="Video Analysis & YouTube" link="/lesson/3-2" status="ready" />
+              <LessonRow id="3.3" title="Video Creation: From Static to Magic (Veo)" link="/lesson/3-3" status="ready" />
             </ModuleCard>
 
             {/* Module 4 */}
