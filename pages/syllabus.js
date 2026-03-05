@@ -98,7 +98,7 @@ const Syllabus = () => {
               color="orange"
             >
               <LessonRow id="4.1" title="Integration: Docs, Drive & Gmail" link="/lesson/4-1" status="ready" />
-              <LessonRow id="4.2" title="Building a Second Brain" link="#" status="coming_soon" />
+              <LessonRow id="4.2" title="Building a Second Brain" link="/lesson/4-2" status="ready" />
             </ModuleCard>
 
             {/* Module 5 */}
