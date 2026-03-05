@@ -42,8 +42,27 @@ const Lesson4_1 = () => {
             </p>
           </motion.div>
 
+          {/* The Big 3 Integrations (MOVED UP) */}
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+             <IntegrationCard 
+                icon={<Mail className="w-6 h-6 text-red-500" />}
+                title="Gmail"
+                prompt="Find the email from 'HR' about 'Benefits' sent last week and summarize the key changes."
+             />
+             <IntegrationCard 
+                icon={<Database className="w-6 h-6 text-blue-500" />}
+                title="Drive"
+                prompt="Find the PDF named 'Q3 Report' and extract the revenue numbers for July."
+             />
+             <IntegrationCard 
+                icon={<FileText className="w-6 h-6 text-blue-400" />}
+                title="Docs"
+                prompt="Read the document 'Project Alpha Proposal' and write a counter-argument."
+             />
+          </div>
+
           {/* The Privacy Note */}
-          <div className="bg-green-50 border border-green-200 rounded-2xl p-6 mb-16 flex gap-4 items-start">
+          <div className="bg-green-50 border border-green-200 rounded-2xl p-6 mb-24 flex gap-4 items-start">
              <ShieldCheck className="w-6 h-6 text-green-600 mt-1 shrink-0" />
              <div>
                 <h4 className="font-bold text-green-900 mb-1">Privacy First</h4>
@@ -97,25 +116,6 @@ const Lesson4_1 = () => {
              <div className="max-w-2xl mx-auto bg-slate-800 rounded-2xl border border-slate-700 shadow-xl overflow-hidden">
                 <GmailSearchSimulation />
              </div>
-          </div>
-
-          {/* The Big 3 Integrations */}
-          <div className="grid md:grid-cols-3 gap-8 mb-24">
-             <IntegrationCard 
-                icon={<Mail className="w-6 h-6 text-red-500" />}
-                title="Gmail"
-                prompt="Find the email from 'HR' about 'Benefits' sent last week and summarize the key changes."
-             />
-             <IntegrationCard 
-                icon={<Database className="w-6 h-6 text-blue-500" />}
-                title="Drive"
-                prompt="Find the PDF named 'Q3 Report' and extract the revenue numbers for July."
-             />
-             <IntegrationCard 
-                icon={<FileText className="w-6 h-6 text-blue-400" />}
-                title="Docs"
-                prompt="Read the document 'Project Alpha Proposal' and write a counter-argument."
-             />
           </div>
 
           <div className="flex justify-between items-center pt-8 border-t border-slate-200">
