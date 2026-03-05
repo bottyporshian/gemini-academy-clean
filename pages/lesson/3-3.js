@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Video, Image as ImageIcon, Wand2, Play, Zap, Film } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Video, Image as ImageIcon, Wand2, Play, Zap, Loader2, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Lesson3_3 = () => {
@@ -59,20 +59,18 @@ const Lesson3_3 = () => {
           <div className="mb-24">
              <div className="text-center mb-10">
                 <h2 className="text-3xl font-bold mb-4">1. Text-to-Video</h2>
-                <p className="text-slate-600">Just like image generation, but it moves. Keep prompts short and descriptive.</p>
+                <p className="text-slate-600">Just like image generation, but it moves. Click play to see it in action.</p>
              </div>
              
-             <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl relative overflow-hidden text-center">
+             <div className="bg-slate-900 rounded-3xl p-8 shadow-2xl relative overflow-hidden text-center group">
                 <div className="inline-block bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6 text-left max-w-lg mx-auto mb-8">
                    <p className="text-xs text-slate-400 uppercase font-bold mb-2">The Prompt:</p>
                    <p className="font-mono text-lg text-purple-300">"Cinematic drone shot of a futuristic city with neon lights, 4k, realistic"</p>
                 </div>
-                <div className="aspect-video bg-black rounded-xl overflow-hidden relative group max-w-2xl mx-auto border border-slate-700">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                        <Play className="w-16 h-16 text-white opacity-50 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                    <div className="absolute bottom-4 left-4 text-xs text-white/50">Generated with Veo</div>
-                </div>
+                
+                {/* INTERACTIVE VIDEO PLAYER 1 */}
+                <VideoSimulation type="city" />
+                
              </div>
           </div>
 
@@ -90,8 +88,10 @@ const Lesson3_3 = () => {
                         <h3 className="font-bold text-slate-500 uppercase text-xs mb-6">Step 1: The Input</h3>
                         <div className="mb-6">
                             <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 inline-block rotate-[-2deg]">
-                                <img src="/api/placeholder/400/300" alt="Static Whiskey Bottle" className="rounded-lg mb-2 opacity-50" />
-                                <p className="text-xs text-center text-slate-400">static_bottle.jpg</p>
+                                <div className="w-full h-48 bg-slate-200 rounded-lg flex items-center justify-center text-4xl">
+                                    🥃
+                                </div>
+                                <p className="text-xs text-center text-slate-400 mt-2">static_bottle.jpg</p>
                             </div>
                         </div>
                         <div className="bg-white p-4 rounded-xl border border-slate-200">
@@ -110,29 +110,8 @@ const Lesson3_3 = () => {
                         <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-black"></div>
                         <h3 className="font-bold text-white/50 uppercase text-xs mb-6 relative z-10">Step 2: The Result</h3>
                         
-                        <div className="relative z-10 w-full aspect-[9/16] max-w-[200px] bg-black rounded-2xl overflow-hidden shadow-2xl border border-amber-500/30 group">
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-20"></div>
-                            
-                            {/* Simulated Video Content */}
-                            <div className="absolute inset-0 flex items-center justify-center bg-amber-900/20">
-                                <motion.div 
-                                    animate={{ scale: [1, 1.1], rotate: [0, 1] }}
-                                    transition={{ duration: 5, repeat: Infinity, repeatType: "reverse" }}
-                                    className="w-full h-full bg-amber-800/10 flex items-center justify-center"
-                                >
-                                    <span className="text-6xl">🥃</span>
-                                </motion.div>
-                            </div>
-
-                            <div className="absolute bottom-6 left-0 w-full text-center z-30">
-                                <p className="text-amber-100 font-serif text-lg tracking-widest">GOLD LABEL</p>
-                                <p className="text-amber-100/60 text-[8px] uppercase tracking-[0.2em]">Est. 1894</p>
-                            </div>
-                            
-                            <div className="absolute top-4 right-4 z-30">
-                                <span className="bg-black/50 text-white text-[8px] px-1.5 py-0.5 rounded backdrop-blur-md border border-white/10">AI GENERATED</span>
-                            </div>
-                        </div>
+                        {/* INTERACTIVE VIDEO PLAYER 2 */}
+                        <VideoSimulation type="whiskey" />
                         
                         <p className="mt-6 text-sm text-slate-400 text-center relative z-10 max-w-xs">
                             Gemini understands the physics of liquid and lighting, creating movement where there was none.
@@ -154,6 +133,129 @@ const Lesson3_3 = () => {
       </div>
     </>
   );
+};
+
+// --- SIMULATED VIDEO PLAYER COMPONENT ---
+const VideoSimulation = ({ type }) => {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handlePlay = () => {
+        setIsPlaying(true);
+        setIsLoading(true);
+        
+        // Simulate "generation" time
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 2000);
+    };
+
+    // CITY ANIMATION (Background pan)
+    if (type === 'city') {
+        return (
+            <div className="aspect-video bg-black rounded-xl overflow-hidden relative group max-w-2xl mx-auto border border-slate-700 cursor-pointer" onClick={!isPlaying ? handlePlay : undefined}>
+                {!isPlaying ? (
+                    // IDLE STATE
+                    <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 to-blue-900/40"></div>
+                        <div className="text-center z-10">
+                            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm mx-auto mb-2 hover:scale-110 transition-transform">
+                                <Play className="w-8 h-8 text-white fill-white ml-1" />
+                            </div>
+                            <span className="text-sm font-medium text-white/70">Click to Generate Video</span>
+                        </div>
+                    </div>
+                ) : (
+                    // PLAYING STATE
+                    <div className="w-full h-full relative">
+                        {isLoading ? (
+                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-20">
+                                <Loader2 className="w-8 h-8 text-purple-500 animate-spin mb-2" />
+                                <span className="text-xs text-purple-300 font-mono animate-pulse">Generating video...</span>
+                            </div>
+                        ) : (
+                            <div className="relative w-full h-full overflow-hidden">
+                                {/* SIMULATED VIDEO MOVEMENT: Panning gradient/shapes */}
+                                <motion.div 
+                                    initial={{ scale: 1.2, x: -50 }}
+                                    animate={{ scale: 1, x: 0 }}
+                                    transition={{ duration: 10, ease: "linear", repeat: Infinity, repeatType: "mirror" }}
+                                    className="absolute inset-0 bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900"
+                                >
+                                    {/* City lights simulation */}
+                                    <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-blue-400 rounded-full blur-[2px] shadow-[0_0_10px_#60a5fa]"></div>
+                                    <div className="absolute top-1/3 left-3/4 w-1 h-1 bg-pink-400 rounded-full blur-[1px] shadow-[0_0_10px_#f472b6]"></div>
+                                    <div className="absolute bottom-1/4 right-1/4 w-32 h-64 bg-black/30 rotate-12 blur-xl"></div>
+                                </motion.div>
+                                <div className="absolute bottom-4 left-4 flex items-center gap-2">
+                                     <span className="text-[10px] text-white/50 bg-black/50 px-2 py-1 rounded">00:04 / 00:06</span>
+                                </div>
+                            </div>
+                        )}
+                        <div className="absolute bottom-4 right-4 text-xs text-white/50 z-20 flex items-center gap-1">
+                             <Sparkles className="w-3 h-3" /> Generated with Veo
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    }
+
+    // WHISKEY ANIMATION (Zoom & Glow)
+    if (type === 'whiskey') {
+        return (
+            <div className="relative z-10 w-full aspect-[9/16] max-w-[200px] bg-black rounded-2xl overflow-hidden shadow-2xl border border-amber-500/30 group cursor-pointer" onClick={!isPlaying ? handlePlay : undefined}>
+                {!isPlaying ? (
+                    // IDLE
+                     <div className="absolute inset-0 flex items-center justify-center bg-amber-950/50 hover:bg-amber-950/40 transition-colors">
+                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:scale-110 transition-transform">
+                             <Play className="w-5 h-5 text-white fill-white ml-1" />
+                        </div>
+                    </div>
+                ) : (
+                    // PLAYING
+                    <div className="w-full h-full relative">
+                        {isLoading ? (
+                             <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-20">
+                                <Loader2 className="w-6 h-6 text-amber-500 animate-spin" />
+                             </div>
+                        ) : (
+                            <div className="w-full h-full relative overflow-hidden">
+                                {/* Simulated Liquid Motion */}
+                                <motion.div 
+                                    animate={{ 
+                                        scale: [1, 1.15],
+                                        rotate: [0, 2, -1, 0]
+                                    }}
+                                    transition={{ duration: 8, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                                    className="w-full h-full bg-gradient-to-b from-amber-900/40 to-amber-600/20 flex items-center justify-center"
+                                >
+                                    <div className="relative">
+                                        <div className="text-6xl filter drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">🥃</div>
+                                        {/* Liquid reflections */}
+                                        <motion.div 
+                                            animate={{ opacity: [0, 0.5, 0], x: [-10, 10] }}
+                                            transition={{ duration: 3, repeat: Infinity }}
+                                            className="absolute top-0 left-0 w-full h-full bg-white/20 blur-xl rounded-full"
+                                        ></motion.div>
+                                    </div>
+                                </motion.div>
+                                
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
+                                <div className="absolute bottom-6 left-0 w-full text-center z-10 pointer-events-none">
+                                    <p className="text-amber-100 font-serif text-lg tracking-widest drop-shadow-lg">GOLD LABEL</p>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                )}
+                
+                <div className="absolute top-4 right-4 z-30 pointer-events-none">
+                    <span className="bg-black/50 text-white text-[8px] px-1.5 py-0.5 rounded backdrop-blur-md border border-white/10">AI GENERATED</span>
+                </div>
+            </div>
+        );
+    }
 };
 
 export default Lesson3_3;
