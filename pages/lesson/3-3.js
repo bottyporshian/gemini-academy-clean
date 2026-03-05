@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Video, Image as ImageIcon, Wand2, Play, Zap, Loader2, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Video, Image as ImageIcon, Wand2, Play, Zap, Loader2, Sparkles, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Lesson3_3 = () => {
@@ -68,13 +68,13 @@ const Lesson3_3 = () => {
                    <p className="font-mono text-lg text-purple-300">"Cinematic drone shot of a futuristic city with neon lights, 4k, realistic"</p>
                 </div>
                 
-                {/* INTERACTIVE VIDEO PLAYER 1 */}
+                {/* Simulated Video Player 1 (City) - Still simulated as user didn't provide asset for this one */}
                 <VideoSimulation type="city" />
                 
              </div>
           </div>
 
-          {/* PART 2: THE WHISKEY TRICK (IMAGE TO VIDEO) */}
+          {/* PART 2: THE WHISKEY TRICK (IMAGE TO VIDEO) - REAL ASSETS */}
           <div className="mb-24">
              <div className="text-center mb-10">
                 <h2 className="text-3xl font-bold mb-4">2. The "Whiskey Commercial" Trick</h2>
@@ -83,35 +83,51 @@ const Lesson3_3 = () => {
              
              <div className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
                 <div className="grid md:grid-cols-2">
-                    {/* LEFT: INPUT */}
-                    <div className="p-10 border-r border-slate-100 bg-slate-50">
-                        <h3 className="font-bold text-slate-500 uppercase text-xs mb-6">Step 1: The Input</h3>
-                        <div className="mb-6">
-                            <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 inline-block rotate-[-2deg]">
-                                <div className="w-full h-48 bg-slate-200 rounded-lg flex items-center justify-center text-4xl">
-                                    🥃
-                                </div>
+                    {/* LEFT: INPUT (Static Image) */}
+                    <div className="p-10 border-r border-slate-100 bg-slate-50 flex flex-col justify-center">
+                        <h3 className="font-bold text-slate-500 uppercase text-xs mb-6 text-center">Step 1: The Input</h3>
+                        <div className="mb-6 flex justify-center">
+                            <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 inline-block rotate-[-2deg] max-w-[220px]">
+                                {/* REAL IMAGE */}
+                                <img 
+                                    src="/macallan.jpg" 
+                                    alt="Static Whiskey Bottle" 
+                                    className="rounded-lg mb-2 w-full h-auto object-cover" 
+                                />
                                 <p className="text-xs text-center text-slate-400 mt-2">static_bottle.jpg</p>
                             </div>
                         </div>
                         <div className="bg-white p-4 rounded-xl border border-slate-200">
                             <p className="text-xs text-slate-400 font-bold mb-2">THE PROMPT:</p>
-                            <p className="font-mono text-sm text-slate-700">
+                            <p className="font-mono text-sm text-slate-700 leading-relaxed">
                                 "Turn this image into a cinematic commercial. Slow zoom in. 
-                                <span className="bg-yellow-100 text-yellow-800 px-1">Amber liquid swirling</span> inside the bottle. 
-                                <span className="bg-yellow-100 text-yellow-800 px-1">Dim luxury bar lighting</span> in the background. 
+                                <span className="bg-yellow-100 text-yellow-800 px-1 rounded mx-1">Amber liquid swirling</span> inside the bottle. 
+                                <span className="bg-yellow-100 text-yellow-800 px-1 rounded mx-1">Dim luxury bar lighting</span> in the background. 
                                 4k, high resolution."
                             </p>
                         </div>
                     </div>
 
-                    {/* RIGHT: OUTPUT (SIMULATION) */}
-                    <div className="p-10 bg-slate-900 text-white flex flex-col justify-center items-center relative overflow-hidden">
-                        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-black"></div>
+                    {/* RIGHT: OUTPUT (Real Video) */}
+                    <div className="p-10 bg-slate-900 text-white flex flex-col justify-center items-center relative overflow-hidden min-h-[500px]">
+                        <div className="absolute inset-0 bg-gradient-to-br from-amber-950/40 to-black"></div>
                         <h3 className="font-bold text-white/50 uppercase text-xs mb-6 relative z-10">Step 2: The Result</h3>
                         
-                        {/* INTERACTIVE VIDEO PLAYER 2 */}
-                        <VideoSimulation type="whiskey" />
+                        {/* REAL VIDEO PLAYER */}
+                        <div className="relative z-10 w-full max-w-[280px] bg-black rounded-2xl overflow-hidden shadow-2xl border border-amber-500/30 group aspect-[9/16]">
+                            <video 
+                                controls 
+                                poster="/macallan.jpg"
+                                className="w-full h-full object-cover"
+                            >
+                                <source src="/whisky-commercial.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
+
+                            <div className="absolute top-4 right-4 z-30 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span className="bg-black/50 text-white text-[8px] px-1.5 py-0.5 rounded backdrop-blur-md border border-white/10">AI GENERATED</span>
+                            </div>
+                        </div>
                         
                         <p className="mt-6 text-sm text-slate-400 text-center relative z-10 max-w-xs">
                             Gemini understands the physics of liquid and lighting, creating movement where there was none.
@@ -135,7 +151,7 @@ const Lesson3_3 = () => {
   );
 };
 
-// --- SIMULATED VIDEO PLAYER COMPONENT ---
+// --- SIMULATED VIDEO PLAYER COMPONENT (Only used for City/Text-to-Video now) ---
 const VideoSimulation = ({ type }) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -197,62 +213,6 @@ const VideoSimulation = ({ type }) => {
                         </div>
                     </div>
                 )}
-            </div>
-        );
-    }
-
-    // WHISKEY ANIMATION (Zoom & Glow)
-    if (type === 'whiskey') {
-        return (
-            <div className="relative z-10 w-full aspect-[9/16] max-w-[200px] bg-black rounded-2xl overflow-hidden shadow-2xl border border-amber-500/30 group cursor-pointer" onClick={!isPlaying ? handlePlay : undefined}>
-                {!isPlaying ? (
-                    // IDLE
-                     <div className="absolute inset-0 flex items-center justify-center bg-amber-950/50 hover:bg-amber-950/40 transition-colors">
-                        <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm hover:scale-110 transition-transform">
-                             <Play className="w-5 h-5 text-white fill-white ml-1" />
-                        </div>
-                    </div>
-                ) : (
-                    // PLAYING
-                    <div className="w-full h-full relative">
-                        {isLoading ? (
-                             <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-20">
-                                <Loader2 className="w-6 h-6 text-amber-500 animate-spin" />
-                             </div>
-                        ) : (
-                            <div className="w-full h-full relative overflow-hidden">
-                                {/* Simulated Liquid Motion */}
-                                <motion.div 
-                                    animate={{ 
-                                        scale: [1, 1.15],
-                                        rotate: [0, 2, -1, 0]
-                                    }}
-                                    transition={{ duration: 8, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-                                    className="w-full h-full bg-gradient-to-b from-amber-900/40 to-amber-600/20 flex items-center justify-center"
-                                >
-                                    <div className="relative">
-                                        <div className="text-6xl filter drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]">🥃</div>
-                                        {/* Liquid reflections */}
-                                        <motion.div 
-                                            animate={{ opacity: [0, 0.5, 0], x: [-10, 10] }}
-                                            transition={{ duration: 3, repeat: Infinity }}
-                                            className="absolute top-0 left-0 w-full h-full bg-white/20 blur-xl rounded-full"
-                                        ></motion.div>
-                                    </div>
-                                </motion.div>
-                                
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
-                                <div className="absolute bottom-6 left-0 w-full text-center z-10 pointer-events-none">
-                                    <p className="text-amber-100 font-serif text-lg tracking-widest drop-shadow-lg">GOLD LABEL</p>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                )}
-                
-                <div className="absolute top-4 right-4 z-30 pointer-events-none">
-                    <span className="bg-black/50 text-white text-[8px] px-1.5 py-0.5 rounded backdrop-blur-md border border-white/10">AI GENERATED</span>
-                </div>
             </div>
         );
     }
