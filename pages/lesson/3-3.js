@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Video, Image as ImageIcon, Wand2, Play, Zap, Loader2, Sparkles, X } from 'lucide-react';
@@ -55,7 +55,7 @@ const Lesson3_3 = () => {
              </div>
           </div>
 
-          {/* PART 1: TEXT TO VIDEO */}
+          {/* PART 1: TEXT TO VIDEO (REAL ASSETS) */}
           <div className="mb-24">
              <div className="text-center mb-10">
                 <h2 className="text-3xl font-bold mb-4">1. Text-to-Video</h2>
@@ -68,8 +68,18 @@ const Lesson3_3 = () => {
                    <p className="font-mono text-lg text-purple-300">"Cinematic drone shot of a futuristic city with neon lights, 4k, realistic"</p>
                 </div>
                 
-                {/* Simulated Video Player 1 (City) - Still simulated as user didn't provide asset for this one */}
-                <VideoSimulation type="city" />
+                {/* REAL VIDEO PLAYER 1 (City) */}
+                <div className="aspect-video bg-black rounded-xl overflow-hidden relative group max-w-2xl mx-auto border border-slate-700 shadow-2xl">
+                    <video 
+                        controls 
+                        className="w-full h-full object-cover"
+                        poster="https://images.pexels.com/videos/32288208/free-video-32288208.jpg?auto=compress&cs=tinysrgb&fit=crop&h=720&w=1280"
+                    >
+                        <source src="/city.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    <div className="absolute bottom-4 left-4 text-xs text-white/50 pointer-events-none drop-shadow-md">Generated with Veo</div>
+                </div>
                 
              </div>
           </div>
@@ -113,7 +123,7 @@ const Lesson3_3 = () => {
                         <div className="absolute inset-0 bg-gradient-to-br from-amber-950/40 to-black"></div>
                         <h3 className="font-bold text-white/50 uppercase text-xs mb-6 relative z-10">Step 2: The Result</h3>
                         
-                        {/* REAL VIDEO PLAYER */}
+                        {/* REAL VIDEO PLAYER 2 (Whiskey) */}
                         <div className="relative z-10 w-full max-w-[280px] bg-black rounded-2xl overflow-hidden shadow-2xl border border-amber-500/30 group aspect-[9/16]">
                             <video 
                                 controls 
@@ -149,73 +159,6 @@ const Lesson3_3 = () => {
       </div>
     </>
   );
-};
-
-// --- SIMULATED VIDEO PLAYER COMPONENT (Only used for City/Text-to-Video now) ---
-const VideoSimulation = ({ type }) => {
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-
-    const handlePlay = () => {
-        setIsPlaying(true);
-        setIsLoading(true);
-        
-        // Simulate "generation" time
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 2000);
-    };
-
-    // CITY ANIMATION (Background pan)
-    if (type === 'city') {
-        return (
-            <div className="aspect-video bg-black rounded-xl overflow-hidden relative group max-w-2xl mx-auto border border-slate-700 cursor-pointer" onClick={!isPlaying ? handlePlay : undefined}>
-                {!isPlaying ? (
-                    // IDLE STATE
-                    <div className="absolute inset-0 flex items-center justify-center bg-slate-800">
-                        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 to-blue-900/40"></div>
-                        <div className="text-center z-10">
-                            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm mx-auto mb-2 hover:scale-110 transition-transform">
-                                <Play className="w-8 h-8 text-white fill-white ml-1" />
-                            </div>
-                            <span className="text-sm font-medium text-white/70">Click to Generate Video</span>
-                        </div>
-                    </div>
-                ) : (
-                    // PLAYING STATE
-                    <div className="w-full h-full relative">
-                        {isLoading ? (
-                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 z-20">
-                                <Loader2 className="w-8 h-8 text-purple-500 animate-spin mb-2" />
-                                <span className="text-xs text-purple-300 font-mono animate-pulse">Generating video...</span>
-                            </div>
-                        ) : (
-                            <div className="relative w-full h-full overflow-hidden">
-                                {/* SIMULATED VIDEO MOVEMENT: Panning gradient/shapes */}
-                                <motion.div 
-                                    initial={{ scale: 1.2, x: -50 }}
-                                    animate={{ scale: 1, x: 0 }}
-                                    transition={{ duration: 10, ease: "linear", repeat: Infinity, repeatType: "mirror" }}
-                                    className="absolute inset-0 bg-gradient-to-r from-indigo-900 via-purple-900 to-slate-900"
-                                >
-                                    {/* City lights simulation */}
-                                    <div className="absolute top-1/2 left-1/4 w-2 h-2 bg-blue-400 rounded-full blur-[2px] shadow-[0_0_10px_#60a5fa]"></div>
-                                    <div className="absolute top-1/3 left-3/4 w-1 h-1 bg-pink-400 rounded-full blur-[1px] shadow-[0_0_10px_#f472b6]"></div>
-                                    <div className="absolute bottom-1/4 right-1/4 w-32 h-64 bg-black/30 rotate-12 blur-xl"></div>
-                                </motion.div>
-                                <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                                     <span className="text-[10px] text-white/50 bg-black/50 px-2 py-1 rounded">00:04 / 00:06</span>
-                                </div>
-                            </div>
-                        )}
-                        <div className="absolute bottom-4 right-4 text-xs text-white/50 z-20 flex items-center gap-1">
-                             <Sparkles className="w-3 h-3" /> Generated with Veo
-                        </div>
-                    </div>
-                )}
-            </div>
-        );
-    }
 };
 
 export default Lesson3_3;
