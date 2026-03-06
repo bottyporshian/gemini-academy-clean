@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { BookOpen, Code, Image as ImageIcon, Zap, CheckCircle, Lock } from 'lucide-react';
+import { BookOpen, Code, Image as ImageIcon, Zap, CheckCircle, Lock, Globe } from 'lucide-react';
 
 const Syllabus = () => {
   return (
