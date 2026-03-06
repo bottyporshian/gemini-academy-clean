@@ -112,6 +112,66 @@ const Syllabus = () => {
               <LessonRow id="5.1" title="Build Your Own Gem" link="/lesson/5-1" status="ready" />
               <LessonRow id="5.2" title="API & Python Basics" link="#" status="coming_soon" />
             </ModuleCard>
+
+            {/* Module 6 */}
+            <ModuleCard 
+              number="6" 
+              title="Advanced Thinking" 
+              desc="Brainstorming & Strategic Decision Making."
+              icon={<Zap className="w-6 h-6 text-yellow-600" />}
+              color="yellow"
+            >
+              <LessonRow id="6.1" title="Advanced Brainstorming" link="/lesson/6-1" status="ready" highlight={true} />
+              <LessonRow id="6.2" title="Decision Matrix & Analysis" link="#" status="coming_soon" />
+            </ModuleCard>
+
+            {/* Module 7 */}
+            <ModuleCard 
+              number="7" 
+              title="Data Analyst" 
+              desc="Cleaning, Analyzing & Visualizing Data."
+              icon={<Code className="w-6 h-6 text-teal-600" />}
+              color="teal"
+            >
+              <LessonRow id="7.1" title="Data Cleaning & Analysis" link="/lesson/7-1" status="ready" highlight={true} />
+              <LessonRow id="7.2" title="Forecasting & Reporting" link="#" status="coming_soon" />
+            </ModuleCard>
+
+            {/* Module 8 */}
+            <ModuleCard 
+              number="8" 
+              title="Content Marketing" 
+              desc="Writing High-Ranking Blog Posts & Copy."
+              icon={<BookOpen className="w-6 h-6 text-pink-600" />}
+              color="pink"
+            >
+              <LessonRow id="8.1" title="Advanced Copywriting (PAS/AIDA)" link="#" status="coming_soon" />
+              <LessonRow id="8.2" title="Long-Form Content (SEO Blog)" link="/lesson/8-2" status="ready" highlight={true} />
+            </ModuleCard>
+
+            {/* Module 9 */}
+            <ModuleCard 
+              number="9" 
+              title="Ecosystem Extensions" 
+              desc="Flights, Hotels, Maps & Real World."
+              icon={<Globe className="w-6 h-6 text-orange-600" />}
+              color="orange"
+            >
+              <LessonRow id="9.1" title="Deep Workspace Integration" link="#" status="coming_soon" />
+              <LessonRow id="9.2" title="Extensions: Travel Agent Mode" link="/lesson/9-2" status="ready" highlight={true} />
+            </ModuleCard>
+
+            {/* Module 10 */}
+            <ModuleCard 
+              number="10" 
+              title="Master Class" 
+              desc="Custom Instructions & Life OS."
+              icon={<CheckCircle className="w-6 h-6 text-purple-600" />}
+              color="purple"
+            >
+              <LessonRow id="10.1" title="Custom Instructions (System Prompts)" link="#" status="coming_soon" />
+              <LessonRow id="10.2" title="Course Summary & Final Project" link="#" status="coming_soon" />
+            </ModuleCard>
           </div>
         </div>
       </div>
