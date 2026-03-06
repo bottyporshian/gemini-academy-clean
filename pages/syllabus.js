@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { BookOpen, Code, Image as ImageIcon, Zap, CheckCircle, Lock, Globe } from 'lucide-react';
+import { BookOpen, Code, Image as ImageIcon, Zap, CheckCircle, Lock, Globe, Smartphone } from 'lucide-react';
 
 const Syllabus = () => {
   return (
@@ -159,6 +159,7 @@ const Syllabus = () => {
             >
               <LessonRow id="9.1" title="Deep Workspace Integration" link="/lesson/9-1" status="ready" highlight={true} />
               <LessonRow id="9.2" title="Extensions: Travel Agent Mode" link="/lesson/9-2" status="ready" highlight={true} />
+              <LessonRow id="9.3" title="Gemini on Android (Overlay)" link="/lesson/android-gemini" status="ready" highlight={true} />
             </ModuleCard>
 
             {/* Module 10 */}
