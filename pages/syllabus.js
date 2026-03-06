@@ -122,7 +122,7 @@ const Syllabus = () => {
               color="yellow"
             >
               <LessonRow id="6.1" title="Advanced Brainstorming" link="/lesson/6-1" status="ready" highlight={true} />
-              <LessonRow id="6.2" title="Decision Matrix & Analysis" link="#" status="coming_soon" />
+              <LessonRow id="6.2" title="Decision Matrix & Analysis" link="/lesson/6-2" status="ready" highlight={true} />
             </ModuleCard>
 
             {/* Module 7 */}
@@ -134,7 +134,7 @@ const Syllabus = () => {
               color="teal"
             >
               <LessonRow id="7.1" title="Data Cleaning & Analysis" link="/lesson/7-1" status="ready" highlight={true} />
-              <LessonRow id="7.2" title="Forecasting & Reporting" link="#" status="coming_soon" />
+              <LessonRow id="7.2" title="Forecasting & Reporting" link="/lesson/7-2" status="ready" highlight={true} />
             </ModuleCard>
 
             {/* Module 8 */}
@@ -145,7 +145,7 @@ const Syllabus = () => {
               icon={<BookOpen className="w-6 h-6 text-pink-600" />}
               color="pink"
             >
-              <LessonRow id="8.1" title="Advanced Copywriting (PAS/AIDA)" link="#" status="coming_soon" />
+              <LessonRow id="8.1" title="Advanced Copywriting (PAS/AIDA)" link="/lesson/8-1" status="ready" highlight={true} />
               <LessonRow id="8.2" title="Long-Form Content (SEO Blog)" link="/lesson/8-2" status="ready" highlight={true} />
             </ModuleCard>
 
@@ -157,7 +157,7 @@ const Syllabus = () => {
               icon={<Globe className="w-6 h-6 text-orange-600" />}
               color="orange"
             >
-              <LessonRow id="9.1" title="Deep Workspace Integration" link="#" status="coming_soon" />
+              <LessonRow id="9.1" title="Deep Workspace Integration" link="/lesson/9-1" status="ready" highlight={true} />
               <LessonRow id="9.2" title="Extensions: Travel Agent Mode" link="/lesson/9-2" status="ready" highlight={true} />
             </ModuleCard>
 
@@ -169,8 +169,8 @@ const Syllabus = () => {
               icon={<CheckCircle className="w-6 h-6 text-purple-600" />}
               color="purple"
             >
-              <LessonRow id="10.1" title="Custom Instructions (System Prompts)" link="#" status="coming_soon" />
-              <LessonRow id="10.2" title="Course Summary & Final Project" link="#" status="coming_soon" />
+              <LessonRow id="10.1" title="Custom Instructions (System Prompts)" link="/lesson/10-1" status="ready" highlight={true} />
+              <LessonRow id="10.2" title="Course Summary & Final Project" link="/lesson/10-2" status="ready" highlight={true} />
             </ModuleCard>
           </div>
         </div>
