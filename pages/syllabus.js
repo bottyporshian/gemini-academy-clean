@@ -50,6 +50,19 @@ const Syllabus = () => {
           </div>
 
           <div className="space-y-8">
+            {/* Module: Trending Now (2026) */}
+            <ModuleCard 
+              number="🔥" 
+              title="Trending Now (New)" 
+              desc="The hottest topics based on current search trends. Start here to stay ahead."
+              icon={<Zap className="w-6 h-6 text-red-600" />}
+              color="red"
+            >
+              <LessonRow id="NEW" title="Try Gemini 3: Why Everyone is Switching" link="/lesson/try-gemini-3" status="ready" highlight={true} />
+              <LessonRow id="NEW" title="Gemini vs. Claude vs. ChatGPT (2026 Showdown)" link="/lesson/gemini-vs-claude-vs-chatgpt" status="ready" highlight={true} />
+              <LessonRow id="NEW" title="NotebookLM: The Viral Podcast Tool" link="/lesson/notebooklm-tutorial" status="ready" highlight={true} />
+            </ModuleCard>
+
             {/* Module 1 */}
             <ModuleCard 
               number="1" 
