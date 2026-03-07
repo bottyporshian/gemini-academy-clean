@@ -111,6 +111,41 @@ const Hero = () => {
                 </div>
               </Link>
             </div>
+
+            {/* Trending Now Section */}
+            <div className="mt-12 grid gap-4 max-w-2xl mx-auto">
+              <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">🔥 Trending Now (2026)</p>
+              
+              <Link href="/lesson/try-gemini-3" className="block p-4 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all text-left group">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-bold text-slate-900 group-hover:text-blue-600 transition-colors">Try Gemini 3</h3>
+                    <p className="text-sm text-slate-500">Why everyone is searching for it right now.</p>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-blue-500" />
+                </div>
+              </Link>
+
+              <Link href="/lesson/gemini-vs-claude-vs-chatgpt" className="block p-4 bg-white border border-slate-200 rounded-xl hover:border-purple-300 hover:shadow-md transition-all text-left group">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-bold text-slate-900 group-hover:text-purple-600 transition-colors">Gemini vs. Claude vs. ChatGPT</h3>
+                    <p className="text-sm text-slate-500">The definitive 2026 showdown. Who wins?</p>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-purple-500" />
+                </div>
+              </Link>
+
+              <Link href="/lesson/notebooklm-tutorial" className="block p-4 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:shadow-md transition-all text-left group">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-bold text-slate-900 group-hover:text-green-600 transition-colors">NotebookLM Tutorial</h3>
+                    <p className="text-sm text-slate-500">Turn PDFs into viral podcasts. Zero hallucinations.</p>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-green-500" />
+                </div>
+              </Link>
+            </div>
           </motion.div>
         </main>
 
