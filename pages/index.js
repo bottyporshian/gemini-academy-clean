@@ -182,4 +182,4 @@ const FeatureCard = ({ icon, title, desc }) => (
   </div>
 );
 
-export default Hero;
+export default Hero;// Trigger deploy Sat Mar  7 17:08:55 IST 2026
