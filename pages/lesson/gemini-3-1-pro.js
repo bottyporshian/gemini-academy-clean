@@ -104,8 +104,8 @@ const LessonGemini31Pro = () => {
             <Link href="/syllabus" className="flex items-center gap-2 text-slate-500 hover:text-slate-900 font-medium transition-colors">
               <ArrowLeft className="w-4 h-4" /> Back to Syllabus
             </Link>
-            <Link href="/lesson/advanced-multimodal-applications" className="flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-full font-bold hover:bg-indigo-700 transition-colors">
-              Next: Advanced Multimodal Apps <ArrowRight className="w-4 h-4" />
+            <Link href="/syllabus" className="flex items-center gap-2 bg-indigo-600 text-white px-6 py-3 rounded-full font-bold hover:bg-indigo-700 transition-colors">
+              Next: Syllabus <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 

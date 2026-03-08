@@ -61,6 +61,7 @@ const Syllabus = () => {
               <LessonRow id="NEW" title="Try Gemini 3: Why Everyone is Switching" link="/lesson/try-gemini-3" status="ready" highlight={true} />
               <LessonRow id="NEW" title="Gemini vs. Claude vs. ChatGPT (2026 Showdown)" link="/lesson/gemini-vs-claude-vs-chatgpt" status="ready" highlight={true} />
               <LessonRow id="NEW" title="NotebookLM: The Viral Podcast Tool" link="/lesson/notebooklm-tutorial" status="ready" highlight={true} />
+              <LessonRow id="NEW" title="Gemini 3.1 Pro: The Next Evolution" link="/lesson/gemini-3-1-pro" status="ready" highlight={true} />
             </ModuleCard>
 
             {/* Module 1 */}
