@@ -10,7 +10,7 @@ const Hero = () => {
       <Head>
         <title>How to Use Gemini 3 | The #1 Free AI Course & Guide 2026</title>
         <meta name="description" content="Master Google Gemini 3.1 with our free, interactive course. Learn prompt engineering, workspace automation, and image generation (Imagen 3). Start from zero." />
-        <meta name="keywords" content="how to use gemini 3, google gemini course free, gemini 3.1 features, gemini vs chatgpt 2026, android gemini integration, google workspace ai automation, learn ai for free, imagen 3 tutorial, prompt engineering guide, ai agent tutorials 2026, try gemini 3, gemini vs claude vs chatgpt, notebooklm tutorial, gemini 3 features" />
+        <meta name="keywords" content="how to use gemini 3, google gemini course free, gemini 3.1 features, gemini vs chatgpt 2026, android gemini integration, google workspace ai automation, learn ai for free, imagen 3 tutorial, prompt engineering guide, ai agent tutorials 2026, try gemini 3, gemini vs claude vs chatgpt, notebooklm tutorial, gemini 3 features, gemini 3.1 pro, gemini seo 2026, google gemini prompts for productivity, march pixel drop ai tools, mastering google gemini ai 2026" />
         <meta property="og:title" content="The Ultimate Free Guide to Google Gemini 3 (2026)" />
         <meta property="og:description" content="Don't just chat. Master reasoning. Join 10,000+ students learning to automate their life with Gemini." />
         <meta property="og:image" content="https://geminiacademy.co/og-image.jpg" />
