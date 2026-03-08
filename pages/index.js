@@ -159,6 +159,29 @@ const Hero = () => {
           </motion.div>
         </main>
 
+        {/* New "Life Hacks (Viral)" Section */}
+        <section className="max-w-7xl mx-auto px-6 py-12">
+          <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-green-500 to-teal-500">
+            🚀 Life Hacks (Viral)
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Link href="/hacks/coding-no-code" className="block p-6 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow text-left group">
+              <h3 className="font-bold text-xl text-gray-900 group-hover:text-green-600 transition-colors mb-2">How to Build Apps Without Knowing How to Code &rarr;</h3>
+              <p className="text-gray-600">Let Gemini write your Python/React code, debug errors, and deploy with ease.</p>
+            </Link>
+
+            <Link href="/hacks/meeting-notes" className="block p-6 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow text-left group">
+              <h3 className="font-bold text-xl text-gray-900 group-hover:text-teal-600 transition-colors mb-2">Automate Your Meeting Notes Forever &rarr;</h3>
+              <p className="text-gray-600">Paste transcripts into Gemini for instant action items, summaries, and email drafts.</p>
+            </Link>
+
+            <Link href="/hacks/personal-tutor" className="block p-6 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow text-left group">
+              <h3 className="font-bold text-xl text-gray-900 group-hover:text-blue-600 transition-colors mb-2">Turn Gemini Into a Personal Math Tutor &rarr;</h3>
+              <p className="text-gray-600">Prompts to make Gemini teach complex concepts, quiz you, and explain mistakes (Socratic method).</p>
+            </Link>
+          </div>
+        </section>
+
         {/* Features Grid (Social Proof / Value) */}
         <section className="bg-gray-50 py-20 border-t border-gray-100">
           <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12">
