@@ -2,6 +2,119 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+
+const codeSnippet = [
+  "// app.py (Python Flask backend)",
+  "from flask import Flask, request, jsonify",
+  "app = Flask(__name__)",
+  "",
+  "@app.route('/greet', methods=['POST'])",
+  "def greet():",
+  "    data = request.json",
+  "    name = data.get('name', 'Guest')",
+  "    return jsonify({'message': f'Hello, {name}!'})",
+  "",
+  "if __name__ == '__main__':",
+  "    app.run(debug=True)",
+  "",
+  "// App.js (React frontend)",
+  "import React, { useState } from 'react';",
+  "import axios from 'axios';",
+  "",
+  "function App() {",
+  "    const [name, setName] = useState('');",
+  "    const [greeting, setGreeting] = useState('');",
+  "",
+  "    const handleSubmit = async () => {",
+  "        const response = await axios.post('/greet', { name });",
+  "        setGreeting(response.data.message);",
+  "    };",
+  "",
+  "    return (",
+  "        <div>",
+  "            <input type=\'text\' value={name} onChange={(e) => setName(e.target.value)} placeholder=\'Enter your name\' />",
+  "            <button onClick={handleSubmit}>Get Greeting</button>",
+  "            {greeting && <p>{greeting}</p>}",
+  "        </div>",
+  "    );",
+  "}",
+  "",
+  "export default App;"
+];
+
+const sentence = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delay: 0.5,
+      staggerChildren: 0.03,
+    },
+  },
+};
+
+const letter = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+  },
+};
+
+const CodeGenerationSimulation = () => {
+  return (
+    <div className="simulation-container">
+      <h3 className="simulation-title">Watch Gemini Generate Code:</h3>
+      <motion.div
+        className="code-block"
+        variants={sentence}
+        initial="hidden"
+        animate="visible"
+      >
+        {codeSnippet.map((line, lineIndex) => (
+          <p key={lineIndex} className="code-line">
+            {line.split("").map((char, charIndex) => (
+              <motion.span key={charIndex} variants={letter}>
+                {char}
+              </motion.span>
+            ))}
+          </p>
+        ))}
+      </motion.div>
+      <style jsx>{`
+        .simulation-container {
+          background-color: #282c34;
+          border-radius: 8px;
+          padding: 20px;
+          margin: 40px auto;
+          max-width: 700px;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .simulation-title {
+          color: #61dafb;
+          font-family: 'Fira Code', monospace;
+          text-align: center;
+          margin-bottom: 20px;
+          font-size: 1.5rem;
+        }
+        .code-block {
+          white-space: pre-wrap;
+          word-break: break-all;
+        }
+        .code-line {
+          font-family: 'Fira Code', monospace;
+          font-size: 0.9rem;
+          line-height: 1.4;
+          color: #abb2bf;
+          margin: 0;
+          height: 1.4em; /* Ensure consistent line height for animation */
+          overflow: hidden; /* Hide overflow during animation */
+        }
+      `}</style>
+    </div>
+  );
+};
 
 export default function CodingNoCode() {
   return (
@@ -20,6 +133,8 @@ export default function CodingNoCode() {
           Unlock your app development potential with the power of AI, even if you've never written a line of code.
           Gemini can be your personal coding assistant, helping you bring your ideas to life.
         </p>
+
+        <CodeGenerationSimulation />
 
         <div className="grid">
           <div className="card">

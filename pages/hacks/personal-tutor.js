@@ -2,6 +2,132 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+
+const messages = [
+  {
+    speaker: "User",
+    text: "Explain the concept of derivatives in calculus. Assume I know basic algebra but nothing about calculus.",
+    delay: 0,
+  },
+  {
+    speaker: "Gemini",
+    text: "Imagine you're driving a car. Your speed is constantly changing. A derivative helps us figure out your exact speed at any given moment, even if it's just for an instant! It's essentially the 'rate of change' or the 'slope of a curve' at a specific point.",
+    delay: 2,
+  },
+  {
+    speaker: "User",
+    text: "Okay, I think I get the analogy. Can you give me a simple problem to test my understanding?",
+    delay: 5,
+  },
+  {
+    speaker: "Gemini",
+    text: "Certainly! If a ball's height (h) at time (t) is given by the function h(t) = 5t^2 + 3t. What is the derivative of h(t)? In simple terms, what's the formula for the ball's instantaneous speed?",
+    delay: 7,
+  },
+  {
+    speaker: "User",
+    text: "Hmm, I think it's 10t + 3. Is that right?",
+    delay: 10,
+  },
+  {
+    speaker: "Gemini",
+    text: "That's a great attempt! You're very close. The power rule states that for t^n, the derivative is n*t^(n-1). Apply that rule to each term. You've got the idea for 5t^2. What about the 3t term?",
+    delay: 12,
+  },
+  {
+    speaker: "User",
+    text: "Ah, for 3t, it would just be 3. So the answer is 10t + 3!",
+    delay: 15,
+  },
+  {
+    speaker: "Gemini",
+    text: "Excellent! You've got it. That's the instantaneous rate of change of the ball's height. Any more questions or ready for another problem?",
+    delay: 17,
+  },
+];
+
+const PersonalTutorSimulation = () => {
+  const messageVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
+
+  return (
+    <div className="simulation-container">
+      <h3 className="simulation-title">Your Personal Gemini Math Tutor:</h3>
+      <div className="chat-window">
+        {messages.map((msg, index) => (
+          <motion.div
+            key={index}
+            className={`chat-message ${msg.speaker.toLowerCase()}`}
+            variants={messageVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: msg.delay }}
+          >
+            <span className="speaker">{msg.speaker}:</span> {msg.text}
+          </motion.div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        .simulation-container {
+          background-color: #f0f2f5;
+          border-radius: 12px;
+          padding: 30px;
+          margin: 40px auto;
+          max-width: 700px;
+          box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+        }
+        .simulation-title {
+          color: #212121;
+          font-family: 'Google Sans', sans-serif;
+          text-align: center;
+          margin-bottom: 30px;
+          font-size: 1.8rem;
+          font-weight: 700;
+        }
+        .chat-window {
+          background-color: #ffffff;
+          border-radius: 8px;
+          padding: 20px;
+          height: 450px;
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
+        }
+        .chat-message {
+          padding: 12px 18px;
+          border-radius: 20px;
+          max-width: 85%;
+          word-wrap: break-word;
+          font-size: 0.95rem;
+          line-height: 1.5;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        .chat-message.user {
+          align-self: flex-end;
+          background-color: #e2f4ff;
+          color: #2196f3;
+          border-bottom-right-radius: 5px;
+        }
+        .chat-message.gemini {
+          align-self: flex-start;
+          background-color: #f3f3f3;
+          color: #424242;
+          border-bottom-left-radius: 5px;
+        }
+        .speaker {
+          font-weight: bold;
+          margin-right: 5px;
+        }
+      `}</style>
+    </div>
+  );
+};
 
 export default function PersonalTutor() {
   return (
@@ -19,6 +145,8 @@ export default function PersonalTutor() {
         <p className="description">
           Struggling with a complex concept? Gemini can act as your personal tutor, explaining topics, quizzing you, and clarifying mistakes using the Socratic method.
         </p>
+
+        <PersonalTutorSimulation />
 
         <div className="grid">
           <div className="card">
