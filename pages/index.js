@@ -116,6 +116,16 @@ const Hero = () => {
             <div className="mt-12 grid gap-4 max-w-2xl mx-auto">
               <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-2">🔥 Trending Now (2026)</p>
               
+              <Link href="/lesson/gemini-3-1-pro" className="block p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:shadow-md transition-all text-left group">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">Gemini 3.1 Pro</h3>
+                    <p className="text-sm text-slate-500">The next evolution in AI is here.</p>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-slate-300 group-hover:text-indigo-500" />
+                </div>
+              </Link>
+
               <Link href="/lesson/try-gemini-3" className="block p-4 bg-white border border-slate-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all text-left group">
                 <div className="flex items-center justify-between">
                   <div>
