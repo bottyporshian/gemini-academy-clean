@@ -72,7 +72,7 @@ const Lesson3_2 = () => {
                    <div className="flex gap-3">
                       <div className="w-8 h-8 rounded-full bg-blue-100 shrink-0"></div>
                       <div className="bg-slate-100 p-3 rounded-lg text-sm w-full">
-                         <p className="text-slate-700">Summarize this video: https://youtu.be/...</p>
+                         <p className="text-slate-700">Summarize this video: https://www.youtube.com/watch?v=GOOGLE_GEMINI_OVERVIEW_VIDEO_ID /* Placeholder */</p>
                       </div>
                    </div>
                    <div className="flex gap-3">
@@ -305,7 +305,7 @@ const VideoWorkflowSimulation = () => {
                   <div className="flex-1 text-sm text-slate-600 font-mono truncate">
                      {step === 5 && <span className="text-slate-400">Paste URL...</span>}
                      {step >= 6 && (
-                        <span className="text-slate-800">Summarize this: https://youtu.be/...</span>
+                        <span className="text-slate-800">Summarize this: https://www.youtube.com/watch?v=GOOGLE_GEMINI_OVERVIEW_VIDEO_ID</span>
                      )}
                   </div>
                   <motion.div 

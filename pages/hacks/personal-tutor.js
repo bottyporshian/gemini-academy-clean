@@ -73,15 +73,15 @@ const PersonalTutorSimulation = () => {
 
       <style jsx>{`
         .simulation-container {
-          background-color: #f0f2f5;
+          background-color: #fff8e1; /* Light cream/yellow background */
           border-radius: 12px;
           padding: 30px;
           margin: 40px auto;
           max-width: 700px;
-          box-shadow: 0 6px 30px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 6px 30px rgba(255, 165, 0, 0.2); /* Soft orange shadow */
         }
         .simulation-title {
-          color: #212121;
+          color: #e65100; /* Deep orange */
           font-family: 'Google Sans', sans-serif;
           text-align: center;
           margin-bottom: 30px;
@@ -97,7 +97,7 @@ const PersonalTutorSimulation = () => {
           display: flex;
           flex-direction: column;
           gap: 15px;
-          box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.08);
+          box-shadow: inset 0 1px 4px rgba(255, 165, 0, 0.15); /* Soft orange inner shadow */
         }
         .chat-message {
           padding: 12px 18px;
@@ -106,18 +106,18 @@ const PersonalTutorSimulation = () => {
           word-wrap: break-word;
           font-size: 0.95rem;
           line-height: 1.5;
-          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
         }
         .chat-message.user {
           align-self: flex-end;
-          background-color: #e2f4ff;
-          color: #2196f3;
+          background-color: #ffe0b2; /* Light orange for user */
+          color: #e65100; /* Deep orange for user text */
           border-bottom-right-radius: 5px;
         }
         .chat-message.gemini {
           align-self: flex-start;
-          background-color: #f3f3f3;
-          color: #424242;
+          background-color: #fff9c4; /* Light yellow for Gemini */
+          color: #c53900; /* Slightly darker orange for Gemini text */
           border-bottom-left-radius: 5px;
         }
         .speaker {
@@ -150,8 +150,15 @@ export default function PersonalTutor() {
 
         <div className="grid">
           <div className="card">
+            <h3>Step 0: Start a Tutoring Session &rarr;</h3>
+            <p>
+              Open Gemini and begin a new conversation. Clearly state that you're looking for a tutor for a specific subject or concept.
+            </p>
+            <code>"Hello Gemini, I need help understanding calculus. Can you be my personal math tutor?"</code>
+          </div>
+          <div className="card">
             <h3>Step 1: Introduce the Concept &rarr;</h3>
-            <p>Tell Gemini what you want to learn. Be specific about the level of detail you need.</p>
+            <p>After starting your session, tell Gemini what you want to learn. Be specific about the level of detail you need.</p>
             <code>"Explain the concept of derivatives in calculus. Assume I know basic algebra but nothing about calculus."</code>
           </div>
 
@@ -174,7 +181,7 @@ export default function PersonalTutor() {
           </div>
 
           <div className="card">
-            <h3>Pro Tip: Explore Related Concepts &rarr;</h3>
+            <h3>Step 5: Pro Tip: Explore Related Concepts &rarr;</h3>
             <p>Once you grasp a concept, ask Gemini to introduce related topics or real-world applications.</p>
             <code>"Now that I understand derivatives, what's the next logical concept to learn, and how are derivatives used in engineering?"</code>
           </div>
@@ -189,6 +196,8 @@ export default function PersonalTutor() {
           flex-direction: column;
           justify-content: center;
           align-items: center;
+          background-color: #fffaf0; /* Ensure consistency */
+          color: #3e2723; /* Dark brown/orange text */
         }
 
         main {
@@ -201,7 +210,7 @@ export default function PersonalTutor() {
         }
 
         .title a {
-          color: #0070f3;
+          color: #ff9800; /* Orange links */
           text-decoration: none;
         }
 
@@ -216,21 +225,25 @@ export default function PersonalTutor() {
           line-height: 1.15;
           font-size: 4rem;
           text-align: center;
+          color: #e65100; /* Deep orange title */
         }
 
         .description {
           line-height: 1.5;
           font-size: 1.5rem;
           text-align: center;
+          color: #f57c00; /* Orange description */
         }
 
         code {
-          background: #fafafa;
+          background: #fff3e0; /* Lighter orange background for code blocks */
           border-radius: 5px;
           padding: 0.75rem;
           font-size: 1.1rem;
           font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
             DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+          color: #d84315; /* Darker orange code */
+          border: 1px solid #ffab40; /* Orange border */
         }
 
         .grid {
@@ -247,29 +260,34 @@ export default function PersonalTutor() {
           flex-basis: 45%;
           padding: 1.5rem;
           text-align: left;
-          color: inherit;
+          color: #3e2723; /* Dark brown/orange card text */
           text-decoration: none;
-          border: 1px solid #eaeaea;
+          border: 1px solid #ffab40; /* Orange border */
           border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
+          transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+          background-color: #ffe0b2; /* Light orange background for cards */
+          box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
         }
 
         .card:hover,
         .card:focus,
         .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
+          color: #d84315; /* Deeper orange on hover */
+          border-color: #d84315; /* Deeper orange on hover */
+          box-shadow: 0 0 15px rgba(255, 165, 0, 0.4);
         }
 
         .card h3 {
           margin: 0 0 1rem 0;
           font-size: 1.5rem;
+          color: #e65100; /* Deep orange heading */
         }
 
         .card p {
           margin: 0;
           font-size: 1.25rem;
           line-height: 1.5;
+          color: #f57c00; /* Orange for paragraphs */
         }
 
         @media (max-width: 600px) {
@@ -285,9 +303,20 @@ export default function PersonalTutor() {
         body {
           padding: 0;
           margin: 0;
+          background-color: #fffaf0; /* Warm off-white background for the whole page */
+          color: #3e2723; /* Dark brown/orange text */
           font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
             Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
             sans-serif;
+        }
+
+        a {
+          color: #ff9800; /* Orange links */
+          text-decoration: none;
+        }
+
+        a:hover {
+          text-decoration: underline;
         }
 
         * {
